@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\LoveViaLetters",
+    "\\LoveViaLetters\\src",
+    "\\LoveViaLetters\\src\\app",
+    "\\LoveViaLetters\\src\\app\\create-profile",
+    "\\LoveViaLetters\\src\\app\\header",
+    "\\LoveViaLetters\\src\\app\\login",
+    "\\LoveViaLetters\\src\\app\\register"
+  ],
+  "SelectedNode": "\\LoveViaLetters\\src\\app\\create-profile\\create-profile.component.html",
+  "PreviewInSolutionExplorer": false
+}

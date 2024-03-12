@@ -1,11 +1,13 @@
-
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Register</title>
   <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
   <style>
 
@@ -34,6 +36,7 @@
       }
   </style>
 
+
 </head>
 
 <body>
@@ -43,10 +46,14 @@
       <div class="col-md-6" id="medieval-border">
         <div class="card">
           <div class="card-header">
-            Login
+            Register
           </div>
           <div class="card-body">
             <form>
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Full Name">
+              </div>
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" class="form-control" id="email" placeholder="Enter Email">
@@ -55,7 +62,7 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Password">
               </div>
-              <button type="submit" class="btn btn-primary btn-block" id="medieval-button">Login</button>
+              <button type="submit" class="btn btn-primary btn-block" id="medieval-button">Register</button>
             </form>
           </div>
         </div>
@@ -69,3 +76,4 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
+</html>
