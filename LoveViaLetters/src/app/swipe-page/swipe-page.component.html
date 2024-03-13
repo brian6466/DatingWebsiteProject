@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tinder Clone Swipe Page</title>
+  <style>
+    /* Add your CSS styles here */
+    .card-container {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
+    }
+
+    .card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+      .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .card.like {
+        transform: translateX(-100%) rotate(-30deg);
+        transition: transform 0.3s ease;
+      }
+
+      .card.dislike {
+        transform: translateX(100%) rotate(30deg);
+        transition: transform 0.3s ease;
+      }
+
+    .btn-like {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background-color: #44c767;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn-dislike {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: #c74444;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+
+    body {
+      font-family: 'Old English Text MT', serif;
+    }
+
+    #medieval-border {
+      border: 2px solid #7f5e46;
+      border-radius: 10px;
+      background-color: #ffe4b5;
+      padding: 10px;
+    }
+
+    #medieval-button {
+      background-color: #8B4513; /* Brown */
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+      #medieval-button:hover {
+        background-color: #CD853F; /* Peru */
+      }
+
+  </style>
+</head>
+<body>
+
+  <div class="card-container">
+    <div class="card" id="medieval-border">
+      <img src="profile1.jpg" alt="Profile 1">
+    </div>
+  </div>
+
+  <button class="btn-like" onclick="swipe('like')">Like</button>
+  <button class="btn-dislike" onclick="swipe('dislike')">Dislike</button>
+
+  <script>
+    function swipe(action) {
+        var card = document.querySelector('.card');
+        if (action === 'like') {
+            card.classList.add('like');
+        } else if (action === 'dislike') {
+            card.classList.add('dislike');
+        }
+    }
+  </script>
+
+</body>
+</html>
