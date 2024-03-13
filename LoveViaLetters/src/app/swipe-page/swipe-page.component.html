@@ -44,41 +44,26 @@
         transition: transform 0.3s ease;
       }
 
-    .btn-like {
+    .btn-like, .btn-dislike {
       position: absolute;
       bottom: 20px;
-      left: 20px;
-      background-color: #44c767;
-      border: none;
-      color: #fff;
+      
+      border: 2px solid transparent;
+      color: white;
       padding: 10px 20px;
       text-align: center;
       text-decoration: none;
-      display: inline-block;
       font-size: 16px;
       border-radius: 4px;
       cursor: pointer;
+    }
+
+    .btn-like {
+      left: 20px;
     }
 
     .btn-dislike {
-      position: absolute;
-      bottom: 20px;
       right: 20px;
-      background-color: #c74444;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-
-    body {
-      font-family: 'Old English Text MT', serif;
     }
 
     #medieval-border {
@@ -87,19 +72,6 @@
       background-color: #ffe4b5;
       padding: 10px;
     }
-
-    #medieval-button {
-      background-color: #8B4513; /* Brown */
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-      #medieval-button:hover {
-        background-color: #CD853F; /* Peru */
-      }
 
   </style>
 </head>
@@ -115,13 +87,20 @@
   <button class="btn-dislike" onclick="swipe('dislike')">Dislike</button>
 
   <script>
+    let count = 0;
     function swipe(action) {
-        var card = document.querySelector('.card');
-        if (action === 'like') {
-            card.classList.add('like');
-        } else if (action === 'dislike') {
-            card.classList.add('dislike');
-        }
+      var card = document.querySelector('.card');
+      if (action === 'like') {
+        card.classList.add('like');
+      } else if (action === 'dislike') {
+        card.classList.add('dislike');
+      }
+      count++;
+      // Remove card after animation
+      setTimeout(function () {
+        var cardContainer = document.querySelector('.card-container');
+        cardContainer.innerHTML = '<div class="card" id="medieval-border"><img src="blank_profile.jpg" alt="Blank Profile">' + count +'</div>';
+      }, 300); // Change 300 to match transition duration
     }
   </script>
 
