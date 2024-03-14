@@ -1,0 +1,23 @@
+body {
+  font-family: 'Old English Text MT', serif;
+}
+
+#medieval-border {
+  border: 2px solid #7f5e46;
+  border-radius: 10px;
+  background-color: #ffe4b5;
+  padding: 10px;
+}
+
+#medieval-button {
+  background-color: #8B4513; /* Brown */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+  #medieval-button:hover {
+    background-color: #CD853F; /* Peru */
+  }

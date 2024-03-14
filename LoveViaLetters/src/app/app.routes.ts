@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {CreateProfileComponent} from "./create-profile/create-profile.component";
+import { SwipePageComponent } from './swipe-page/swipe-page.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
   {
     path: "create-profile",
     component: CreateProfileComponent
+  },
+  {
+    path: "swipe-page",
+    component: SwipePageComponent
   },
 
 ];

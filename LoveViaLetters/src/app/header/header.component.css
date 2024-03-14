@@ -1,0 +1,53 @@
+a{
+  margin: 0;
+  font-family: 'Old English Text MT', serif;
+  background-color: #D2B48C; /* Tan */
+}
+
+.navbar {
+  background-color: #8B4513; /* Saddle Brown */
+  color: #fff;
+  padding: 10px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+  .nav-links li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+    .nav-links li:last-child {
+      margin-right: 0;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+.content {
+  padding: 20px;
+  color: #000;
+}

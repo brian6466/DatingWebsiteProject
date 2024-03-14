@@ -1,108 +1,19 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tinder Clone Swipe Page</title>
-  <style>
-    /* Add your CSS styles here */
-    .card-container {
-      position: relative;
-      width: 300px;
-      height: 400px;
-      overflow: hidden;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      margin: 0 auto;
-    }
-
-    .card {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: #fff;
-      background-size: cover;
-      background-position: center;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-      .card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .card.like {
-        transform: translateX(-100%) rotate(-30deg);
-        transition: transform 0.3s ease;
-      }
-
-      .card.dislike {
-        transform: translateX(100%) rotate(30deg);
-        transition: transform 0.3s ease;
-      }
-
-    .btn-like, .btn-dislike {
-      position: absolute;
-      bottom: 20px;
-      
-      border: 2px solid transparent;
-      color: white;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .btn-like {
-      left: 20px;
-    }
-
-    .btn-dislike {
-      right: 20px;
-    }
-
-    #medieval-border {
-      border: 2px solid #7f5e46;
-      border-radius: 10px;
-      background-color: #ffe4b5;
-      padding: 10px;
-    }
-
-  </style>
+  <title>Swipe Page</title>
 </head>
 <body>
 
-  <div class="card-container">
-    <div class="card" id="medieval-border">
-      <img src="profile1.jpg" alt="Profile 1">
+  <div class="card-container" id="medieval-border">
+    <div class="card">
+      <img alt="Profile 1">
     </div>
   </div>
 
-  <button class="btn-like" onclick="swipe('like')">Like</button>
-  <button class="btn-dislike" onclick="swipe('dislike')">Dislike</button>
-
-  <script>
-    let count = 0;
-    function swipe(action) {
-      var card = document.querySelector('.card');
-      if (action === 'like') {
-        card.classList.add('like');
-      } else if (action === 'dislike') {
-        card.classList.add('dislike');
-      }
-      count++;
-      // Remove card after animation
-      setTimeout(function () {
-        var cardContainer = document.querySelector('.card-container');
-        cardContainer.innerHTML = '<div class="card" id="medieval-border"><img src="blank_profile.jpg" alt="Blank Profile">' + count +'</div>';
-      }, 300); // Change 300 to match transition duration
-    }
-  </script>
+  <button class="btn-like" (click)="swipe('like')">Like</button>
+  <button class="btn-dislike" (click)="swipe('dislike')">Dislike</button>
 
 </body>
 </html>
