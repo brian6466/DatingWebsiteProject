@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <div class="container mt-5" ng-controller="RegistrationController">
+  <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-md-6" id="medieval-border">
         <div class="card">
@@ -17,18 +17,18 @@
             Create Profile
           </div>
           <div class="card-body">
-            <form ng-submit="submitForm()">
+            <form (ngSubmit)="showProfile()">
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" ng-model="formData.name" required>
+                <input type="text" class="form-control" id="name" [(ngModel)]="name" name="name">
               </div>
               <div class="form-group">
                 <label for="age">Age</label>
-                <input type="number" class="form-control" id="age" ng-model="formData.age" required>
+                <input type="number" class="form-control" id="age" ngModel="age" name="age">
               </div>
               <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description" ng-model="formData.description" rows="3"></textarea>
+                <input class="form-control" id="description" ngModel="description" name="description" rows="3">
               </div>
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="smoker" ng-model="formData.smoker">

@@ -3,6 +3,7 @@ import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {CreateProfileComponent} from "./create-profile/create-profile.component";
 import { SwipePageComponent } from './swipe-page/swipe-page.component';
+import { AdminComponent } from './admin/admin.component';
 
 export const routes: Routes = [
   {
@@ -21,5 +22,9 @@ export const routes: Routes = [
     path: "swipe-page",
     component: SwipePageComponent
   },
+  {
+    path: "admin",
+    component: AdminComponent
+  }
 
 ];
