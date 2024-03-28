@@ -4,6 +4,12 @@ a{
   background-color: #D2B48C; /* Tan */
 }
 
+span {
+  margin: 0;
+  font-family: 'Old English Text MT', serif;
+  background-color: #D2B48C; /* Tan */
+}
+
 .navbar {
   background-color: #8B4513; /* Saddle Brown */
   color: #fff;

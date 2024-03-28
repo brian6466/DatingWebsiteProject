@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 export class CreateProfileComponent {
 
   name: string = "";
-  age: number = 20;
+  age: number = 0;
   description: string = "";
   isSmoker: boolean = false;
   wantsKids: boolean = false;
@@ -22,9 +22,13 @@ export class CreateProfileComponent {
   }
 
   showProfile() {
-    if (this.age < 18 && this.name != "") {
-      console.log("Users must be over 18");
-      this.router.navigate(["/swipe-page"]);
+    if (this.age > 18 && this.name != "") {
+      console.log("Users Name: ", this.name);
+      console.log("Users Age: ", this.age);
+      console.log("Users Description", this.description);
+      console.log("Is Smoker: ", this.isSmoker);
+      console.log("Wants Kids", this.wantsKids);
+      this.router.navigate(['/']);
     } else {
       
     }
@@ -34,6 +38,7 @@ export class CreateProfileComponent {
     console.log("Users Description", this.description);
     console.log("Is Smoker: ", this.isSmoker);
     console.log("Wants Kids", this.wantsKids);
+    
   }
 
 }

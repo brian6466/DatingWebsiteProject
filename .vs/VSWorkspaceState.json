@@ -1,16 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Backend",
-    "\\Backend\\models",
-    "\\Backend\\routes",
     "\\LoveViaLetters",
     "\\LoveViaLetters\\src",
     "\\LoveViaLetters\\src\\app",
-    "\\LoveViaLetters\\src\\app\\register",
+    "\\LoveViaLetters\\src\\app\\admin",
+    "\\LoveViaLetters\\src\\app\\create-profile",
+    "\\LoveViaLetters\\src\\app\\header",
+    "\\LoveViaLetters\\src\\app\\login",
     "\\LoveViaLetters\\src\\app\\swipe-page",
     "\\LoveViaLetters\\src\\assets"
   ],
-  "SelectedNode": "\\.idea",
+  "SelectedNode": "\\LoveViaLetters\\src\\app\\register\\register.component.ts",
   "PreviewInSolutionExplorer": false
 }
