@@ -16,7 +16,8 @@ export class LoginComponent {
   email: string = "";
   password: string = "";
   emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  
+  private errorMessage: any;
+
 
   constructor(private router: Router, private authService: AuthService) {
 
@@ -26,19 +27,24 @@ export class LoginComponent {
 
     if (!this.emailRegex.test(this.email)) {
       console.log("Invalid email format");
-      console.log("Is user logged in: ", this.authService.isLoggedIn);
-      // You can also display a message to the user indicating that the email format is invalid
-      return; // Exit the method if email format is invalid
+      return;
     } else {
       console.log("User Email: ", this.email);
       console.log("User Password: ", this.password);
-      this.authService.isLoggedIn = true;
-      console.log("Is user logged in: ",this.authService.isLoggedIn);
-      this.router.navigate(["/"]);
+      this.authService.login(this.email, this.password).subscribe({
+        next: () => {
+          this.router.navigate(["/"]);
+        },
+        error: (err) => {
+          //TODO: Make this error message appear on the login screen, also look into potential error messages that can happen
+          this.errorMessage = err.code;
+          console.log(this.errorMessage);
+        }
+      })
     }
   }
 
   logUserOut() {
-    this.authService.isLoggedIn = false;
+
   }
 }
