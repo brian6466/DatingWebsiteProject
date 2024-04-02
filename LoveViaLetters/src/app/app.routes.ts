@@ -4,8 +4,13 @@ import {RegisterComponent} from "./register/register.component";
 import {CreateProfileComponent} from "./create-profile/create-profile.component";
 import { SwipePageComponent } from './swipe-page/swipe-page.component';
 import { AdminComponent } from './admin/admin.component';
+import {HomePageComponennt} from "./home-page/home-page.component";
 
 export const routes: Routes = [
+  {
+    path:'',
+    component : HomePageComponennt
+  },
   {
     path: "login",
     component: LoginComponent
@@ -25,6 +30,7 @@ export const routes: Routes = [
   {
     path: "admin",
     component: AdminComponent
-  }
+  },
+
 
 ];
