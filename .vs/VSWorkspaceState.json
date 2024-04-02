@@ -4,13 +4,11 @@
     "\\LoveViaLetters",
     "\\LoveViaLetters\\src",
     "\\LoveViaLetters\\src\\app",
-    "\\LoveViaLetters\\src\\app\\admin",
-    "\\LoveViaLetters\\src\\app\\create-profile",
     "\\LoveViaLetters\\src\\app\\header",
     "\\LoveViaLetters\\src\\app\\login",
-    "\\LoveViaLetters\\src\\app\\swipe-page",
+    "\\LoveViaLetters\\src\\app\\register",
     "\\LoveViaLetters\\src\\assets"
   ],
-  "SelectedNode": "\\LoveViaLetters\\src\\app\\register\\register.component.ts",
+  "SelectedNode": "\\LoveViaLetters\\src\\index.html",
   "PreviewInSolutionExplorer": false
 }

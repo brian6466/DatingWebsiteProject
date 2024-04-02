@@ -1,0 +1,33 @@
+<body>
+
+  <header>
+    <h1>Matches & Messaging</h1>
+  </header>
+
+  <main>
+    <section class="matches">
+      <h2>Matches</h2>
+      <div class="match-list" id="matchList">
+        <!-- Display list of matches here -->
+        <div class="match" onclick="openMessageModal('John')">
+          <!--<img src="profile-image.jpg" alt="Profile Image">-->
+          <h3>Lady</h3>
+          <!-- Add any additional information about the match -->
+        </div>
+        <!-- Add more match items as needed -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Message modal -->
+  <div id="messageModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeMessageModal()">&times;</span>
+      <h2>Send Message to <span id="receiverName"></span></h2>
+      <form id="messageForm">
+        <textarea id="messageContent" placeholder="Type your message..."></textarea>
+        <button id="myBtn" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</body>

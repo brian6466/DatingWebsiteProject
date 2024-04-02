@@ -4,6 +4,7 @@ import {RegisterComponent} from "./register/register.component";
 import {CreateProfileComponent} from "./create-profile/create-profile.component";
 import { SwipePageComponent } from './swipe-page/swipe-page.component';
 import { AdminComponent } from './admin/admin.component';
+import { MatchesComponent } from './matches/matches.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
   {
     path: "admin",
     component: AdminComponent
+  },
+  {
+    path: "matches",
+    component: MatchesComponent
   }
 
 ];

@@ -1,14 +1,16 @@
 
   <nav class="navbar">
     <div class="container">
+
       <a href="#" class="logo">Logo</a>
       <ul class="nav-links">
-        <li *ngIf="authService.isLoggedIn"><a routerLink="/create-profile" routerLinkActive="active">Create Profile</a></li>
+        <!--<li *ngIf="!authService.isLoggedIn"><a routerLink="/create-profile" routerLinkActive="active">Create Profile</a></li>-->
         <li *ngIf="!authService.isLoggedIn"><a routerLink="/login" routerLinkActive="active">Log In</a></li>
         <li *ngIf="authService.isLoggedIn"><span (click)="logOut()">Log Out</span></li>
-        <li><a routerLink="/register" routerLinkActive="active">Sign Up</a></li>
+        <li *ngIf="!authService.isLoggedIn"><a routerLink="/register" routerLinkActive="active">Sign Up</a></li>
         <li *ngIf="authService.isLoggedIn"><a routerLink="/swipe-page" routerLinkActive="active">Swipe Page</a></li>
         <li *ngIf="authService.isLoggedIn"><a routerLink="/admin" routerLinkActive="active">Admin Page</a></li>
+        <li *ngIf="!authService.isLoggedIn"><a routerLink="/matches" routerLinkActive="active">Matches Page</a></li>
       </ul>
     </div>
   </nav>

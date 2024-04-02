@@ -4,10 +4,13 @@
 
   <form id="banForm" (ngSubmit)="banProfile()">
     <label for="userId">User ID:</label>
-    <input type="text" id="userId" [(ngModel)]="userId" name="userId"  required>
+    <input type="text" id="userId" [(ngModel)]="userId" name="userId" required>
 
     <label for="reason">Reason:</label>
-    <textarea id="reason" name="reason" required></textarea>
+    <textarea id="reason" [(ngModel)]="reason" name="reason" required></textarea>
+
+    <label for="userId">Ban Time</label>
+    <input type="text" id="banTime" [(ngModel)]="banTime" name="banTime" required>
 
     <button type="submit">Ban User</button>
   </form>
