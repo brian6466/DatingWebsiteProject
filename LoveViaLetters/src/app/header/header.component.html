@@ -3,20 +3,20 @@
   <div class="container">
     <a routerLink="/" routerLinkActive="active" class="logo">Logo</a>
     <ul class="nav-links">
-      <li *ngIf="authService.isLoggedIn"><a routerLink="/create-profile" routerLinkActive="active">Create Profile</a></li>
-      <li *ngIf="!authService.isLoggedIn"><a routerLink="/login" routerLinkActive="active">Log In</a></li>
-      <li *ngIf="authService.isLoggedIn"><span (click)="logOut()">Log Out</span></li>
-      <li><a routerLink="/register" routerLinkActive="active">Sign Up</a></li>
-      <li *ngIf="authService.isLoggedIn"><a routerLink="/swipe-page" routerLinkActive="active">Swipe Page</a></li>
-      <li *ngIf="authService.isLoggedIn"><a routerLink="/admin" routerLinkActive="active">Admin Page</a></li>
+      <li *ngIf="authService.currentUserSignal()"><a routerLink="/create-profile" routerLinkActive="active">Create Profile</a></li>
+      <li *ngIf="authService.currentUserSignal() == null"><a  routerLink="/login" routerLinkActive="active">Log In</a></li>
+      <li *ngIf="authService.currentUserSignal()"><a (click)="logOut()" routerLink="/login" routerLinkActive="active">Log Out</a></li>
+      <li *ngIf="authService.currentUserSignal() == null"><a routerLink="/register" routerLinkActive="active">Sign Up</a></li>
+      <li *ngIf="authService.currentUserSignal()"><a routerLink="/swipe-page" routerLinkActive="active">Swipe Page</a></li>
+      <li *ngIf="authService.currentUserSignal()"><a routerLink="/admin" routerLinkActive="active">Admin Page</a></li>
     </ul>
   </div>
 </nav>
 
 
 <!--<div class="content">-->
-<!-- Your website content goes here -->
-<!--<h1>Welcome to My Website</h1>
+  <!-- Your website content goes here -->
+  <!--<h1>Welcome to My Website</h1>
 </div>-->
 
 
