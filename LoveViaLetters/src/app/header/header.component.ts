@@ -22,10 +22,7 @@ export class HeaderComponent {
   }
 
   logOut() {
-    // Perform logout logic
-    this.authService.isLoggedIn = false;
-    // Navigate to login page after logout
-    this.router.navigate(['/login']);
+    this.authService.logout();
   }
 
 }

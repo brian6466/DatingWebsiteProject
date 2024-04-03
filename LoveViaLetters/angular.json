@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "LoveViaLetters": {
+    "lovevialetters": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -58,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "LoveViaLetters:build:production"
+              "buildTarget": "lovevialetters:build:production"
             },
             "development": {
-              "buildTarget": "LoveViaLetters:build:development"
+              "buildTarget": "lovevialetters:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -69,7 +69,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "LoveViaLetters:build"
+            "buildTarget": "lovevialetters:build"
           }
         },
         "test": {

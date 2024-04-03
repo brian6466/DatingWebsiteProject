@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import {Component, inject, NgModule} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
@@ -16,6 +16,7 @@ export class RegisterComponent {
   email: string = "";
   password: string = "";
   emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  errorMessage: string | undefined;
   constructor(private router: Router, private authService: AuthService) {
 
   }
@@ -24,13 +25,20 @@ export class RegisterComponent {
     console.log("Profile Name: ", this.fullName);
     console.log("Email ", this.email);
     console.log("password", this.password);
-    console.log("Is user Logged in", this.authService.isLoggedIn);
 
     if (this.fullName != "" && this.emailRegex.test(this.email) && this.password != "") {
-      this.authService.isLoggedIn = true;
-      this.router.navigate(["create-profile"]);
+      this.authService.register(this.email, this.password, this.fullName).subscribe({
+        next: () => {
+          this.router.navigate(["create-profile"]);
+      },
+        error: (err) => {
+          //TODO: Make this error message appear on the login screen, also look into potential error messages that can happen
+          this.errorMessage = err.code;
+          console.log(this.errorMessage);
+        }
+      })
     }
 
-    
+
   }
 }
