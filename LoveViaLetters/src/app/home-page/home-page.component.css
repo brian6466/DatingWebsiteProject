@@ -21,3 +21,11 @@ body {
 #medieval-button:hover {
   background-color: #cd853f; /* Peru */
 }
+
+.container{
+  display: flex;
+  align-items: center;
+}
+.content {
+  margin-left: 20px; /* Adjust margin as needed */
+}
