@@ -1,5 +1,6 @@
 body {
-  font-family: 'Old English Text MT', serif;
+  font-family: "Old English Text MT", serif;
+  background-color: #f5e6cc;
 }
 
 #medieval-border {
@@ -20,4 +21,9 @@ body {
 
   #medieval-button:hover {
     background-color: #CD853F; /* Peru */
+  }
+  h1 {
+    font-style: italic;
+  
+    margin-left: 525px;
   }
