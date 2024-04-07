@@ -1,5 +1,12 @@
 body {
   font-family: "Old English Text MT", serif;
+  background-color: #f5e6cc;
+  
+}
+header {
+  font-family: "Old English Text MT", serif;
+  background-color: #f5e6cc;
+  
 }
 
 #medieval-border {
@@ -22,10 +29,8 @@ body {
   background-color: #cd853f; /* Peru */
 }
 
-.container{
-  display: flex;
-  align-items: center;
-}
-.content {
-  margin-left: 20px; /* Adjust margin as needed */
+h1 {
+  font-style: italic;
+
+  margin-left: 525px;
 }
