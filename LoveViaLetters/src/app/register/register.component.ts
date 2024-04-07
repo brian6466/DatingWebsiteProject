@@ -22,10 +22,6 @@ export class RegisterComponent {
   }
 
   registerUser() {
-    console.log("Profile Name: ", this.fullName);
-    console.log("Email ", this.email);
-    console.log("password", this.password);
-
     if (this.fullName != "" && this.emailRegex.test(this.email) && this.password != "") {
       this.authService.register(this.email, this.password, this.fullName).subscribe({
         next: () => {

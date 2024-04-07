@@ -20,8 +20,6 @@ export class AdminComponent {
   }
 
   banProfile() {
-    console.log("Banned Id: ", this.userId);
-    console.log("Reason: ", this.reason);
-    console.log("BanTime: ", this.banTime);
+
   }
 }

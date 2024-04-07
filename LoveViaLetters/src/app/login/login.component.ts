@@ -29,8 +29,6 @@ export class LoginComponent {
       console.log("Invalid email format");
       return;
     } else {
-      console.log("User Email: ", this.email);
-      console.log("User Password: ", this.password);
       this.authService.login(this.email, this.password).subscribe({
         next: () => {
           this.router.navigate(["/"]);
