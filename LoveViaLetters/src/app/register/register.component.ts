@@ -1,7 +1,8 @@
-import {Component, inject, NgModule} from '@angular/core';
+import {Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
+import { UserFirebaseService } from "../shared/userFirebase.service";
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,7 @@ export class RegisterComponent {
   password: string = "";
   emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   errorMessage: string | undefined;
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private userFirebaseService: UserFirebaseService) {
 
   }
 
@@ -26,7 +27,11 @@ export class RegisterComponent {
       this.authService.register(this.email, this.password, this.fullName).subscribe({
         next: () => {
           this.router.navigate(["create-profile"]);
-      },
+          this.userFirebaseService.createUser(
+            this.fullName,
+            this.email,
+            this.authService.getUid());
+        },
         error: (err) => {
           //TODO: Make this error message appear on the login screen, also look into potential error messages that can happen
           this.errorMessage = err.code;
