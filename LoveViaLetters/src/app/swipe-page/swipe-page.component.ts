@@ -11,8 +11,18 @@ export class SwipePageComponent {
 
 
   count: number = 0;
+  images: string[] = []; // Array to store image URLs
+  currentImageIndex: number = 0;
 
-  constructor() { }
+
+  constructor() {
+    this.preloadImages()
+  }
+
+  preloadImages(): void {
+    this.images = ['assets/face-1.png',
+      'assets/face2.jpg', 'assets/face-4.jpg', 'assest/face-3.jpg'];
+  }
 
   swipe = (action: string): void => {
     const card: HTMLElement | null = document.querySelector('.card');
@@ -26,12 +36,14 @@ export class SwipePageComponent {
 
     this.count++; // Increment counter
     this.updateOverlay(); // Update overlay with new count
+    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+    console.log(this.currentImageIndex)
 
     // Remove card after animation
     setTimeout(() => {
       const cardContainer: HTMLElement | null = document.querySelector('.card-container');
       if (!cardContainer) return;
-      cardContainer.innerHTML = `<div class="card"><span class="card-overlay">${this.count}</span><img src="blank_profile.jpg" alt="Blank Profile"></div>`;
+      cardContainer.innerHTML = `<div class="card"><span class="card-overlay">${this.count}</span><img src="${this.images[this.currentImageIndex]}" alt="Profile Image"></div>`;
     }, 300); // Change 300 to match transition duration
   }
 
