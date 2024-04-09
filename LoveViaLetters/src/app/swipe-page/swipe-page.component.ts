@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../shared/auth.service';
+
+
 
 @Component({
   selector: 'app-swipe-page',
@@ -15,13 +18,13 @@ export class SwipePageComponent {
   currentImageIndex: number = 0;
 
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.preloadImages()
   }
 
   preloadImages(): void {
     this.images = ['assets/face-1.png',
-      'assets/face2.jpg', 'assets/face-4.jpg', 'assest/face-3.jpg'];
+      'assets/face2.jpg', 'assest/face-3.jpg', 'assets/face-4.jpg'];
   }
 
   swipe = (action: string): void => {
