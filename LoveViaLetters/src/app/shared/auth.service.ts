@@ -7,7 +7,7 @@ import {
   user
 } from "@angular/fire/auth";
 import {from, Observable} from "rxjs";
-import {UserInterface} from "../models/user.interface";
+import {UserInterface} from "../interfaces/user.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +39,9 @@ export class AuthService {
   logout(): Observable<void> {
     const promise = signOut(this.firebaseAuth)
     return from(promise)
+  }
+
+  getUid() {
+    return this.firebaseAuth.currentUser?.uid
   }
 }
