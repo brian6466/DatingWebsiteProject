@@ -13,8 +13,11 @@ import { firebaseConfig } from "../firebase.config";
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),
     provideAnimationsAsync(),
-    importProvidersFrom(provideFirebaseApp(() => initializeApp(firebaseConfig))),
-    importProvidersFrom(provideAuth(() => getAuth())),
-    importProvidersFrom(provideFirestore(() => getFirestore())),
-    importProvidersFrom(provideStorage(() => getStorage()))]
+    importProvidersFrom([
+      provideFirebaseApp(() => initializeApp(firebaseConfig)),
+      provideAuth(() => getAuth()),
+      provideFirestore(() => getFirestore()),
+      provideStorage(() => getStorage())
+    ])
+  ]
 };
