@@ -1,6 +1,8 @@
 import { Component, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-create-profile',
@@ -17,8 +19,21 @@ export class CreateProfileComponent {
   isSmoker: boolean = false;
   wantsKids: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private fireStorage: AngularFireStorage) {
 
+  }
+
+  async onFileChange(event: any) {
+    console.log("Called Function: ")
+    const file = event.target.files[0]
+    if (file) {
+      console.log(file)
+      const path = `profilePictues/images/${file.name}`
+      const uploadTask = await this.fireStorage.upload(path, file)
+      const url = await uploadTask.ref.getDownloadURL()
+      console.log(url)
+
+    }
   }
 
   showProfile() {
@@ -28,5 +43,7 @@ export class CreateProfileComponent {
 
     }
   }
+
+  
 
 }
