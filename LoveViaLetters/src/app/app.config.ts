@@ -20,7 +20,6 @@ export const appConfig: ApplicationConfig = {
       provideAuth(() => getAuth()),
       provideFirestore(() => getFirestore()),
       provideStorage(() => getStorage()),
-      AngularFireModule.initializeApp(firebaseConfig)
     ])
   ]
 };
