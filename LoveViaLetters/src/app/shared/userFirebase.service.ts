@@ -1,5 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {collection, collectionData, doc, Firestore, getDoc, setDoc} from '@angular/fire/firestore'
+import {getDownloadURL, ref, Storage, uploadBytes, uploadString} from '@angular/fire/storage'
 import {UserInterface} from "../interfaces/user.interface";
 import {Observable} from "rxjs";
 
@@ -9,7 +10,26 @@ import {Observable} from "rxjs";
 })
 export class UserFirebaseService {
   firestore = inject(Firestore)
+  storage = inject(Storage);
   usersCollection = collection(this.firestore, 'users')
+
+  uploadFile(file: any) {
+    try {
+      const storageRef = ref(this.storage, 'profilePictures/')
+      const uploadTask = uploadBytes(storageRef, file)
+      uploadTask.then((snapshot) => {
+        getDownloadURL(storageRef)
+          .then((url) => {
+            console.log(`Download URL: ${url}`);
+          })
+          .catch((error) => {
+            console.error(`Error getting download URL: ${error}`);
+          });
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   getUsers(): Observable<UserInterface[]> {
     return collectionData(this.usersCollection, {

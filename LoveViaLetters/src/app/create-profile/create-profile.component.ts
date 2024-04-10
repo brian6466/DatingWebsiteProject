@@ -1,7 +1,8 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import {UserFirebaseService} from "../shared/userFirebase.service";
 
 @Component({
   selector: 'app-create-profile',
@@ -18,7 +19,7 @@ export class CreateProfileComponent {
   isSmoker: boolean = false;
   wantsKids: boolean = false;
 
-  constructor(private router: Router, private fireStorage:AngularFireStorage) {
+  constructor(private router: Router, private fireStorage:AngularFireStorage, private userFirebaseService: UserFirebaseService) {
 
   }
 
@@ -26,11 +27,10 @@ export class CreateProfileComponent {
     const file = event.target.files[0]
     if (file) {
       console.log(file)
-      const path = 'yt/${file.name}'
+      const path = `yt/${file.name}`
       const uploadTask = await this.fireStorage.upload(path, file)
       const url = await uploadTask.ref.getDownloadURL()
       console.log(url)
-
     }
   }
 
