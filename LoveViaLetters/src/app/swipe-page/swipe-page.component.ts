@@ -27,16 +27,15 @@ export class SwipePageComponent {
   }
 
   preloadImages() {
-
     const storageRef = this.fireStorage.ref('profilePictues/images/');
     storageRef.listAll().subscribe(result =>  {
       result.items.forEach(itemRef => {
         itemRef.getDownloadURL().then(url => {
           console.log(url)
-          this.images.push(url); // Add URL to the images array          
+          this.images.push(url); // Add URL to the images array
         });
       });
-    }); 
+    });
   }
 
   swipe = (action: string): void => {
@@ -70,7 +69,7 @@ export class SwipePageComponent {
         cardContainer.innerHTML = `<div class="card"><span class="card-overlay">${this.count}</span><img src="${this.images[this.currentImageIndex]}" alt="Profile Image"></div>`;
       }, 300); // Change 300 to match transition duration
     }
-    
+
   }
 
 
