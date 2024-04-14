@@ -2,8 +2,9 @@ import {inject, Injectable} from '@angular/core';
 import {collection, collectionData, doc, Firestore, getDoc, setDoc} from '@angular/fire/firestore'
 import {getDownloadURL, ref, Storage, uploadBytes, uploadString} from '@angular/fire/storage'
 import {UserInterface} from "../interfaces/user.interface";
-import {Observable} from "rxjs";
+import {EMPTY, Observable} from "rxjs";
 import {AuthService} from "./auth.service";
+import { UserProfileInterface } from '../interfaces/userProfile.interface';
 
 
 @Injectable({
@@ -82,21 +83,27 @@ export class UserFirebaseService {
     //})
   }
 
-  getUserById(userId: string): Observable<UserInterface | undefined> {
-    const userDocRef = doc(this.firestore, 'users', userId);
-    return new Observable<UserInterface | undefined>(observer => {
-      getDoc(userDocRef).then(docSnapshot => {
-        if (docSnapshot.exists()) {
-          const userData = docSnapshot.data() as UserInterface;
-          observer.next(userData);
-        } else {
-          observer.next(undefined);
-        }
-        observer.complete();
-      }).catch(error => {
-        observer.error(error);
+  getUser(): Observable<UserProfileInterface | undefined> {
+    console.log('getUser called')
+    const userId = this.auth.getUid();
+    if (userId) {
+      const userDocRef = doc(this.firestore, 'users', userId);
+      return new Observable<UserProfileInterface | undefined>(observer => {
+        getDoc(userDocRef).then(docSnapshot => {
+          if (docSnapshot.exists()) {
+            const userData = docSnapshot.data() as UserProfileInterface;
+            observer.next(userData);
+          } else {
+            observer.next(undefined);
+          }
+          observer.complete();
+        }).catch(error => {
+          observer.error(error);
+        });
       });
-    });
+    } else {
+      return EMPTY;
+    }
   }
 
 

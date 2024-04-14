@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {UserFirebaseService} from "../shared/userFirebase.service";
+import {UserInterface} from "../interfaces/user.interface";
+import {UserProfileInterface} from "../interfaces/userProfile.interface";
 
 @Component({
   selector: 'app-create-profile',
@@ -16,6 +18,7 @@ export class CreateProfileComponent implements OnInit {
   profileForm: FormGroup = new FormGroup({});
   interests = ['Hiking', 'Cooking', 'Gaming', 'Traveling', 'Reading'];
   selectedInterests: string[] = [];
+  userData: UserInterface | undefined;
 
   constructor(private router: Router, private userFirebaseService: UserFirebaseService, private fb: FormBuilder) {
 
@@ -35,9 +38,13 @@ export class CreateProfileComponent implements OnInit {
       lookingFor: ['']
     });
 
-    this.interests.forEach(interest => {
-      this.profileForm.addControl(interest, new FormControl(false));
-    });
+    this.userFirebaseService.getUser().subscribe(data => {
+      if (data){
+        this.populateFormWithData(data);
+      }
+
+
+    })
   }
 
   toggleInterest(interest: string): void {
@@ -68,4 +75,20 @@ export class CreateProfileComponent implements OnInit {
   }
 
 
+  private populateFormWithData(data: UserProfileInterface) {
+    console.log(data);
+    this.profileForm.patchValue({
+      name: data.Name,
+      age: data.Age,
+      gender: data.Gender,
+      height: data.Height,
+      description: data.Description,
+      smoke: data.Smoke,
+      drink: data.Drink,
+      selectedInterests: data.Interests,
+      lookingFor: data.LookingFor
+      // Set other form controls based on userData properties
+    });
+    console.log(this.profileForm)
+  }
 }
