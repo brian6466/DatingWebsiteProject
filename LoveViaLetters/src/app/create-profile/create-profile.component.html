@@ -14,44 +14,11 @@
       <div class="col-md-6" id="medieval-border">
         <div class="card">
           <div class="card-header">
-            Create Profile
+            Create/Edit Profile
           </div>
           <div class="card-body">
-<!--            <form (ngSubmit)="showProfile()">-->
-<!--              <div class="form-group">-->
-<!--                <label for="name">Name</label>-->
-<!--                <input type="text" class="form-control" id="name" [(ngModel)]="name" name="name">-->
-<!--              </div>-->
-<!--              <div class="form-group">-->
-<!--                <label for="age">Age</label>-->
-<!--                <input type="number" class="form-control" id="age" [(ngModel)]="age" name="age">-->
-<!--              </div>-->
-<!--              <div class="form-group">-->
-<!--                <label for="description">Description</label>-->
-<!--                <input class="form-control" id="description" [(ngModel)]="description" name="description" rows="3">-->
-<!--              </div>-->
-<!--              <div>-->
-<!--                <p>Upload profile picture</p>-->
-<!--                <input type="file" (change)="onFileChange($event)">-->
-<!--              </div>-->
-<!--              <div class="form-check">-->
-<!--                <input type="checkbox" class="form-check-input" id="smoker" [(ngModel)]="isSmoker" name="isSmoker">-->
-<!--                <label class="form-check-label" for="smoker">Do you smoke?</label>-->
-<!--              </div>-->
-<!--              <div class="form-check">-->
-<!--                <input type="checkbox" class="form-check-input" id="wantsKids" [(ngModel)]="wantsKids" name="wantsKids">-->
-<!--                <label class="form-check-label" for="wantsKids">Do you want kids?</label>-->
-<!--              </div>-->
-<!--              <div class="form-check">-->
-<!--                <input type="checkbox" class="form-check-input" id="drinker" [(ngModel)]="isDrinker" name="isDrinker">-->
-<!--                <label class="form-check-label" for="wantsKids">Do you drink alcohol?</label>-->
-<!--              </div>-->
-<!--              <button type="submit" class="btn btn-primary mt-3" id="medieval-button">Create Profile</button>-->
-<!--            </form>-->
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
               <fieldset>
-                <legend>Profile Information</legend>
-
                 <div class="form-group">
                   <label>Upload Profile Picture:</label>
                   <input type="file" (change)="onFileSelected($event)" />
@@ -101,7 +68,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Interests:</label>
+                  <label>Select Interests:</label>
                   <div *ngFor="let interest of interests">
                     <label>
                       <input type="checkbox" [value]="interest" [checked]="isSelected(interest)" (change)="toggleInterest(interest)">
