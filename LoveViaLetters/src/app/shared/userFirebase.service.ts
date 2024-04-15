@@ -33,7 +33,8 @@ export class UserFirebaseService {
           Drink: formData.drink,
           Interests: formData.selectedInterests,
           LookingFor: formData.lookingFor,
-          profilePic: url
+          profilePic: url,
+          UserId: userId,
         });
         console.log('Profile created successfully!');
       } else {
@@ -77,10 +78,6 @@ export class UserFirebaseService {
     return collectionData(this.usersCollection, {
       idField: 'id'
     }) as Observable<UserProfileInterface[]>;
-    //To use this
-    //this.userFirebaseService.getUsers().subscribe((users) => {
-    //  console.log(users)
-    //})
   }
 
   getUser(): Observable<UserProfileInterface | undefined> {
