@@ -73,10 +73,10 @@ export class UserFirebaseService {
 
   }
 
-  getUsers(): Observable<UserInterface[]> {
+  getUsers(): Observable<UserProfileInterface[]> {
     return collectionData(this.usersCollection, {
       idField: 'id'
-    }) as Observable<UserInterface[]>;
+    }) as Observable<UserProfileInterface[]>;
     //To use this
     //this.userFirebaseService.getUsers().subscribe((users) => {
     //  console.log(users)

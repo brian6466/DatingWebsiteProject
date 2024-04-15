@@ -89,6 +89,7 @@ export class CreateProfileComponent implements OnInit {
       lookingFor: data.LookingFor
       // Set other form controls based on userData properties
     });
+    this.selectedInterests = data.Interests;
     console.log(this.profileForm)
   }
 }

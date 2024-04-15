@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from '../shared/auth.service';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Observable } from 'rxjs';
+import {UserFirebaseService} from "../shared/userFirebase.service";
+import {UserProfileInterface} from "../interfaces/userProfile.interface";
+import * as console from "console";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+
 
 
 
@@ -9,76 +12,45 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-swipe-page',
   standalone: true,
-  imports: [],
+  imports: [
+    NgIf,
+    NgOptimizedImage,
+    NgForOf
+  ],
   templateUrl: './swipe-page.component.html',
   styleUrl: './swipe-page.component.css'
 })
-export class SwipePageComponent {
+export class SwipePageComponent implements OnInit{
 
 
-  count: number = 0;
-  images: string[] = []; // Array to store image URLs
-  currentImageIndex: number = 0;
+  profiles: UserProfileInterface[] = [];
+  currentProfileIndex: number = 0;
+  profileData: UserProfileInterface | null = null;
 
+  constructor(private firebaseService: UserFirebaseService) { }
 
-  constructor(private authService: AuthService, private fireStorage: AngularFireStorage) {
-    console.log("Constructor called");
-    this.preloadImages()
-  }
-
-  preloadImages() {
-    const storageRef = this.fireStorage.ref('profilePictues/images/');
-    storageRef.listAll().subscribe(result =>  {
-      result.items.forEach(itemRef => {
-        itemRef.getDownloadURL().then(url => {
-          console.log(url)
-          this.images.push(url); // Add URL to the images array
-        });
-      });
+  ngOnInit(): void {
+    this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
+      this.profiles = users;
+      if (this.profiles.length > 0) {
+        this.profileData = this.profiles[this.currentProfileIndex];
+      }
     });
   }
 
-  swipe = (action: string): void => {
-    const card: HTMLElement | null = document.querySelector('.card');
-    if (!card) return;
-
-    if (action === 'like' && this.images.length > this.count) {
-      card.classList.add('like');
-    } else if (action === 'dislike' && this.images.length > this.count) {
-      card.classList.add('dislike');
+  swipe(action: string): void {
+    if (action === 'like') {
+      // Handle 'like' action logic here, e.g., save the liked profile to a liked list
     }
 
-
-    this.count++; // Increment counter
-    if (this.images.length < this.count) {
-      setTimeout(() => {
-        const cardContainer: HTMLElement | null = document.querySelector('.card-container');
-        if (!cardContainer) return;
-        cardContainer.innerHTML = `<div class="card"><span class="card-overlay">${this.count}</span><h1>Out of swipes</h1></div>`;
-      }, 300); // Change 300 to match transition duration
-
+    // Move to the next profile
+    this.currentProfileIndex++;
+    if (this.currentProfileIndex < this.profiles.length) {
+      this.profileData = this.profiles[this.currentProfileIndex];
     } else {
-      this.updateOverlay(); // Update overlay with new count
-      this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-      console.log(this.images.length)
-
-      //Remove card after animation
-      setTimeout(() => {
-        const cardContainer: HTMLElement | null = document.querySelector('.card-container');
-        if (!cardContainer) return;
-        cardContainer.innerHTML = `<div class="card"><span class="card-overlay">${this.count}</span><img src="${this.images[this.currentImageIndex]}" alt="Profile Image"></div>`;
-      }, 300); // Change 300 to match transition duration
+      // End of profiles, handle what should happen when all profiles have been viewed
+      this.profileData = null;
+      console.log('No more profiles to swipe');
     }
-
   }
-
-
-
-  updateOverlay(): void {
-    const overlay: HTMLElement | null = document.querySelector('.card-overlay');
-    if (!overlay) return;
-    overlay.textContent = this.count.toString();
-  }
-
-
 }
