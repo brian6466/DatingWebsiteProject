@@ -29,10 +29,10 @@ export class RegisterComponent {
       this.authService.register(this.email, this.password, this.fullName).subscribe({
         next: () => {
           this.router.navigate(["create-profile"]);
-          this.userFirebaseService.createUser(
-            this.fullName,
-            this.email,
-            this.authService.getUid());
+        //   this.userFirebaseService.createUser(
+        //     this.fullName,
+        //     this.email,
+        //     this.authService.getUid());
         },
         error: (err) => {
           this.registerError = true
