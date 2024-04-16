@@ -36,6 +36,7 @@ export class SwipePageComponent implements OnInit{
         if (this.profiles.length > 0) {
           this.profileData = this.profiles[this.currentProfileIndex];
           this.filteredProfiles = this.profiles
+          
         }
       });
     }

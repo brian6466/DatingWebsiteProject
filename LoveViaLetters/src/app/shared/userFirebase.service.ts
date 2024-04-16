@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {collection, collectionData, doc, Firestore, getDoc, setDoc} from '@angular/fire/firestore'
+import {collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where} from '@angular/fire/firestore'
 import {getDownloadURL, ref, Storage, uploadBytes, uploadString} from '@angular/fire/storage'
 import {UserInterface} from "../interfaces/user.interface";
 import {EMPTY, Observable} from "rxjs";
@@ -113,6 +113,23 @@ export class UserFirebaseService {
       });
     } catch (error) {
       console.error('Error creating new user document: ', error);
+      throw error;
+    }
+  }
+
+
+  async banUserById(id: string): Promise<void> {
+    try {
+      const querySnapshot = await getDocs(query(this.usersCollection, where('UserId', '==', id)));
+      if (!querySnapshot.empty) {
+        const userDocRef = querySnapshot.docs[0].ref;
+        await updateDoc(userDocRef, { isBanned: true }); // Update isBanned field to true
+        console.log(`User with id ${id} has been banned.`);
+      } else {
+        console.error(`User with id ${id} not found.`);
+      }
+    } catch (error) {
+      console.error('Error banning user:', error);
       throw error;
     }
   }
