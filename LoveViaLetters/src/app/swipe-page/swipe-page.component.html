@@ -37,7 +37,19 @@
   <button class="btn-dislike" (click)="swipe('dislike')">Dislike</button>
 </div>
 
-<p *ngIf="!profileData">No more profiles to swipe.</p>
+<!--<p *ngIf="!profileData">No more profiles to swipe.</p>-->
+
+
+<div *ngIf="!profileData" class="card-container" id="medieval-border" name="noSwipes">
+
+  <div class="card">
+    <img src="assets/sadFace.jpg" alt="No Swipes">
+    <div style="padding: 10px;">
+      <p>No more swipes left</p>
+    </div>
+  </div>
+
+</div>
 
 
 </body>
