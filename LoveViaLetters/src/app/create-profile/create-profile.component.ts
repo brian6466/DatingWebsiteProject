@@ -35,7 +35,8 @@ export class CreateProfileComponent implements OnInit {
       smoke: [false],
       drink: [false],
       selectedInterests: [[]],
-      lookingFor: ['']
+      lookingFor: [''],
+      imageUrl: ['']
     });
 
     this.userFirebaseService.getUser().subscribe(data => {
@@ -86,9 +87,10 @@ export class CreateProfileComponent implements OnInit {
       smoke: data.Smoke,
       drink: data.Drink,
       selectedInterests: data.Interests,
-      lookingFor: data.LookingFor
-      // Set other form controls based on userData properties
+      lookingFor: data.LookingFor,
+      imageUrl: data.profilePic
     });
+    this.selectedInterests = data.Interests;
     console.log(this.profileForm)
   }
 }

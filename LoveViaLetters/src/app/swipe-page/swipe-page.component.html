@@ -1,21 +1,43 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Swipe Page</title>
+  <style>
+  </style>
 </head>
 <body>
-  <!--<input type="file"/><img src="C:\Users\seanc\OneDrive\Desktop\face-1.png" />-->
-  <div class="card-container" id="medieval-border">
-    <div class="card">
-      
-      <img alt="Profile Image">
+
+<button (click)="openSearchDialog()" class="filter-button">
+  <img src="assets/filter.png" alt="Filter Profiles">
+</button>
+
+<div *ngIf="profileData" class="card-container" id="medieval-border">
+  <div class="card">
+    <img [src]="profileData.profilePic" alt="Profile Image">
+    <div style="padding: 10px;">
+      <h2>{{ profileData.Name }}, {{ profileData.Age }}</h2>
+      <p>Gender: {{ profileData.Gender }}</p>
+      <p>Height: {{ profileData.Height }}</p>
+      <p>Description: {{ profileData.Description }}</p>
+      <p>Drinks: {{ profileData.Drink ? 'Yes' : 'No' }}</p>
+      <p>Smokes: {{ profileData.Smoke ? 'Yes' : 'No' }}</p>
+      <p>Interests:</p>
+      <ul>
+        <li *ngFor="let interest of profileData.Interests">{{ interest }}</li>
+      </ul>
+      <p>Looking for: {{ profileData.LookingFor }}</p>
     </div>
   </div>
+</div>
 
+<div class="button-container" *ngIf="profileData">
   <button class="btn-like" (click)="swipe('like')">Like</button>
   <button class="btn-dislike" (click)="swipe('dislike')">Dislike</button>
+</div>
 
+<p *ngIf="!profileData">No more profiles to swipe.</p>
 
 
 </body>

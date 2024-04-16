@@ -1,5 +1,5 @@
 export interface UserProfileInterface {
-  Age: string;
+  Age: number;
   Name: string;
   Description: string;
   Drink: boolean;
@@ -9,4 +9,5 @@ export interface UserProfileInterface {
   LookingFor: string;
   Smoke: boolean;
   profilePic: string;
+  UserId: string;
 }
