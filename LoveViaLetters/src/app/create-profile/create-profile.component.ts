@@ -1,44 +1,96 @@
-import { Component, NgModule } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {UserFirebaseService} from "../shared/userFirebase.service";
+import {UserInterface} from "../interfaces/user.interface";
+import {UserProfileInterface} from "../interfaces/userProfile.interface";
 
 @Component({
   selector: 'app-create-profile',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './create-profile.component.html',
   styleUrl: './create-profile.component.css'
 })
-export class CreateProfileComponent {
+export class CreateProfileComponent implements OnInit {
 
-  name: string = "";
-  age: number = 0;
-  description: string = "";
-  isSmoker: boolean = false;
-  wantsKids: boolean = false;
+  profileForm: FormGroup = new FormGroup({});
+  interests = ['Hiking', 'Cooking', 'Gaming', 'Traveling', 'Reading'];
+  selectedInterests: string[] = [];
+  userData: UserInterface | undefined;
 
-  constructor(private router: Router) {
-    
+  constructor(private router: Router, private userFirebaseService: UserFirebaseService, private fb: FormBuilder) {
+
   }
 
-  showProfile() {
-    if (this.age > 18 && this.name != "") {
-      console.log("Users Name: ", this.name);
-      console.log("Users Age: ", this.age);
-      console.log("Users Description", this.description);
-      console.log("Is Smoker: ", this.isSmoker);
-      console.log("Wants Kids", this.wantsKids);
-      this.router.navigate(['/']);
+  ngOnInit(): void {
+    this.profileForm = this.fb.group({
+      profilePicture: [''],
+      name: ['', Validators.required],
+      age: ['', [Validators.required, Validators.min(18)]],
+      gender: ['', Validators.required],
+      height: [''],
+      description: [''],
+      smoke: [false],
+      drink: [false],
+      selectedInterests: [[]],
+      lookingFor: [''],
+      imageUrl: ['']
+    });
+
+    this.userFirebaseService.getUser().subscribe(data => {
+      if (data){
+        this.populateFormWithData(data);
+      }
+
+
+    })
+  }
+
+  toggleInterest(interest: string): void {
+    if (this.isSelected(interest)) {
+      this.selectedInterests = this.selectedInterests.filter(item => item !== interest);
     } else {
-      
+      this.selectedInterests.push(interest);
     }
-
-    console.log("Users Name: ", this.name);
-    console.log("Users Age: ", this.age);
-    console.log("Users Description", this.description);
-    console.log("Is Smoker: ", this.isSmoker);
-    console.log("Wants Kids", this.wantsKids);
-    
+    this.profileForm.patchValue({ selectedInterests: this.selectedInterests });
   }
 
+  isSelected(interest: string): boolean {
+    return this.selectedInterests.includes(interest);
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.profileForm.patchValue({ profilePicture: file });  // Update form control with file
+  }
+
+  onSubmit() {
+    if (this.profileForm.valid) {
+      this.userFirebaseService.createProfileFromForm(this.profileForm.value)
+      console.log(this.profileForm.value);
+    } else {
+      console.error('Inputted data failed our validation check...')
+    }
+  }
+
+
+  private populateFormWithData(data: UserProfileInterface) {
+    console.log(data);
+    this.profileForm.patchValue({
+      name: data.Name,
+      age: data.Age,
+      gender: data.Gender,
+      height: data.Height,
+      description: data.Description,
+      smoke: data.Smoke,
+      drink: data.Drink,
+      selectedInterests: data.Interests,
+      lookingFor: data.LookingFor,
+      imageUrl: data.profilePic
+    });
+    this.selectedInterests = data.Interests;
+    console.log(this.profileForm)
+  }
 }

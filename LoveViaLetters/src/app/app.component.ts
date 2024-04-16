@@ -1,9 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-//import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
-import {AuthService} from "./shared/auth.service";
-
+import { AuthService } from "./shared/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -26,7 +24,6 @@ export class AppComponent implements OnInit {
       } else {
         this.authService.currentUserSignal.set(null);
       }
-      console.log(this.authService.currentUserSignal());
     });
   }
 

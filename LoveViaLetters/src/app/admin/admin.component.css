@@ -5,6 +5,10 @@ body {
   padding: 0;
 }
 
+header {
+  background-color: #f5e6cc;
+}
+
 h1 {
   text-align: center;
   margin-top: 50px;

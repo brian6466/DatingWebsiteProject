@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AdminComponent {
 
-  userId: number = 0;
+  userEmail: string = "";
   reason: string = "";
   banTime: number = 0;
 
@@ -20,7 +20,7 @@ export class AdminComponent {
   }
 
   banProfile() {
-    console.log("Banned Id: ", this.userId);
+    console.log("Banneded Email: ", this.userEmail);
     console.log("Reason: ", this.reason);
     console.log("BanTime: ", this.banTime);
   }

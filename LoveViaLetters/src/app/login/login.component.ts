@@ -1,4 +1,5 @@
 import { Component, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
@@ -7,7 +8,7 @@ import { AuthService } from '../shared/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -16,6 +17,7 @@ export class LoginComponent {
   email: string = "";
   password: string = "";
   emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  loginError: boolean = false;
   private errorMessage: any;
 
 
@@ -27,10 +29,9 @@ export class LoginComponent {
 
     if (!this.emailRegex.test(this.email)) {
       console.log("Invalid email format");
+      this.loginError = true;
       return;
     } else {
-      console.log("User Email: ", this.email);
-      console.log("User Password: ", this.password);
       this.authService.login(this.email, this.password).subscribe({
         next: () => {
           this.router.navigate(["/"]);
@@ -39,10 +40,13 @@ export class LoginComponent {
           //TODO: Make this error message appear on the login screen, also look into potential error messages that can happen
           this.errorMessage = err.code;
           console.log(this.errorMessage);
+          this.loginError = true;
         }
       })
     }
   }
+
+ 
 
   logUserOut() {
 
