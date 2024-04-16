@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>Search Users</h2>
+<div mat-dialog-content>
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Minimum Age</mat-label>
+    <input matInput type="number" [(ngModel)]="minAge" placeholder="Min Age">
+  </mat-form-field>
+</div>
+
+  <div>
+  <mat-form-field appearance="fill">
+    <mat-label>Maximum Age</mat-label>
+    <input matInput type="number" [(ngModel)]="maxAge" placeholder="Max Age">
+  </mat-form-field>
+  </div>
+
+  <div>
+    <mat-label>Gender:</mat-label>
+    <mat-radio-group [(ngModel)]="genderPreference">
+      <mat-radio-button [value]="'male'">Male</mat-radio-button>
+      <mat-radio-button [value]="'female'">Female</mat-radio-button>
+      <mat-radio-button [value]="''">No Preference</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div>
+    <mat-label>Drinks:</mat-label>
+    <mat-radio-group [(ngModel)]="drinksPreference">
+      <mat-radio-button [value]="'yes'">Yes</mat-radio-button>
+      <mat-radio-button [value]="'no'">No</mat-radio-button>
+      <mat-radio-button [value]="''">Don't Care</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div>
+    <mat-label>Smokes:</mat-label>
+    <mat-radio-group [(ngModel)]="smokesPreference">
+      <mat-radio-button [value]="'yes'">Yes</mat-radio-button>
+      <mat-radio-button [value]="'no'">No</mat-radio-button>
+      <mat-radio-button [value]="''">Don't Care</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <mat-label>Interests:</mat-label>
+  <div *ngFor="let interest of interests">
+    <mat-checkbox [(ngModel)]="selectedInterests[interest]">{{ interest }}</mat-checkbox>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="applyFilter()">Apply</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</div>
