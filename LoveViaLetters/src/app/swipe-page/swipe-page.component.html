@@ -8,6 +8,11 @@
   </style>
 </head>
 <body>
+
+<button (click)="openSearchDialog()" class="filter-button">
+  <img src="assets/filter.png" alt="Filter Profiles">
+</button>
+
 <div *ngIf="profileData" class="card-container" id="medieval-border">
   <div class="card">
     <img [src]="profileData.profilePic" alt="Profile Image">
@@ -33,5 +38,7 @@
 </div>
 
 <p *ngIf="!profileData">No more profiles to swipe.</p>
+
+
 </body>
 </html>
