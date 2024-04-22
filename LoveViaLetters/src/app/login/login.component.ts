@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +6,8 @@ import { AuthService } from '../shared/auth.service';
 import { UserFirebaseService } from '../shared/userFirebase.service';
 import { UserProfileInterface } from '../interfaces/userProfile.interface';
 import { getAuth } from "firebase/auth";
+import { UserInterface } from '../interfaces/user.interface';
+import { BannedService } from '../shared/banned.service';
 
 
 
@@ -30,24 +32,22 @@ export class LoginComponent {
   auth: any = getAuth()
   user: any = this.auth.currentUser;
   banned: boolean = false;
+  admin: boolean = false;
   
 
 
 
-  constructor(private router: Router, private authService: AuthService, private firebaseService: UserFirebaseService) {
-    
+  constructor(private router: Router, private authService: AuthService, private firebaseService: UserFirebaseService, private bannedService: BannedService) {
+    this.authService.currentUserSignal = signal(null)
   
   }
 
   loadProfiles() {
-    
-    
       this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
         this.profiles = users.filter(user => user.UserId);
         if (this.profiles.length > 0) {
           this.profileData = this.profiles[this.currentProfileIndex];
           this.filteredProfiles = this.profiles
-          console.log(this.filteredProfiles)
         }
       });
     
@@ -64,23 +64,33 @@ export class LoginComponent {
     } else {
       this.authService.login(this.email, this.password).subscribe({
         next: () => {
-          this.authService.getUid();
-          //Ban users kind of works
-          //User that is banned can still click onto navbar
-          //too lazy to fix today
-          console.log(this.authService.user$)
-          const currentUserId = this.authService.getUid()
-          console.log(this.filteredProfiles)
 
-          for (let i = 0; i < this.filteredProfiles.length; i++){
-            if (currentUserId == this.filteredProfiles[i].UserId && this.filteredProfiles[i].isBanned) {
+          const currentUserId = this.authService.getUid()
+          console.log("User ID, ", this.authService.getUid())
+          //this.banned = this.bannedService.checkBan(currentUserId)
+
+          for (let i = 0; i < this.filteredProfiles.length; i++) {
+
+            if (currentUserId == this.filteredProfiles[i].UserId && this.filteredProfiles[i].isAdmin == true) {
+              this.admin = true;
+              console.log("Admin status login," , this.admin)
+              this.bannedService.setAdmin(this.admin)
+              this.bannedService.notifyButtonClick()
+            }
+
+            if (currentUserId == this.filteredProfiles[i].UserId && this.filteredProfiles[i].isBanned == true) {
               console.log("User Banned")
               this.banned = true;
-              this.loginError = true;
-            } 
+              this.bannedService.setBanned(this.banned);
+              this.authService.logout()
+              this.bannedService.notifyButtonClick()
+              return;
+            }
           }
           if (this.banned != true) {
             this.router.navigate(["/"]);
+            console.log("User not banned")
+            console.log("user logged in");
           }
           
           

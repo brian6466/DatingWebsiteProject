@@ -2,20 +2,25 @@ import {inject, Injectable, signal} from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
+  getAuth,
   signInWithEmailAndPassword, signOut,
   updateProfile,
   user
 } from "@angular/fire/auth";
 import {from, Observable} from "rxjs";
-import {UserInterface} from "../interfaces/user.interface";
+import { UserInterface } from "../interfaces/user.interface";
+import { UserFirebaseService } from '../shared/userFirebase.service';
+import { collection, Firestore, getDocs, query, where } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  firestore = inject(Firestore)
   firebaseAuth = inject(Auth)
   user$ = user(this.firebaseAuth)
   currentUserSignal = signal<UserInterface | null | undefined>(undefined)
+  userCollection = collection(this.firestore, 'user')
 
   register(email: string, password: string, name: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(
@@ -32,7 +37,15 @@ export class AuthService {
       this.firebaseAuth,
       email,
       password)
-      .then(()=>{})
+      .then(() => {
+
+        console.log("User ID: ", this.getUid())
+        
+        
+         //console.log(this.filteredProfiles)
+        /////
+
+      })
     return from(promise)
   }
 
@@ -44,4 +57,18 @@ export class AuthService {
   getUid() {
     return this.firebaseAuth.currentUser?.uid
   }
+  //loadProfiles() {
+
+
+  //  this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
+  //    this.profiles = users.filter(user => user.UserId);
+  //    if (this.profiles.length > 0) {
+  //      this.profileData = this.profiles[this.currentProfileIndex];
+  //      this.filteredProfiles = this.profiles
+  //      console.log("Load Profiles called, ", this.filteredProfiles)
+  //    }
+  //  });
+
+  //}
+
 }

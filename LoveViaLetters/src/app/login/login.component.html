@@ -29,6 +29,9 @@
               <div *ngIf="loginError" class="alert alert-danger mt-3">
                 Incorrect email or password. Please try again.
               </div>
+              <div *ngIf="banned" class="alert alert-danger mt-3">
+                Account has been banned
+              </div>
             </form>
           </div>
         </div>

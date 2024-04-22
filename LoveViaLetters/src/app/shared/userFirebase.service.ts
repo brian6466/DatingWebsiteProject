@@ -118,7 +118,7 @@ export class UserFirebaseService {
   }
 
 
-  async banUserById(id: string): Promise<void> {
+  async banUserById(id: any): Promise<void> {
     try {
       const querySnapshot = await getDocs(query(this.usersCollection, where('UserId', '==', id)));
       if (!querySnapshot.empty) {
