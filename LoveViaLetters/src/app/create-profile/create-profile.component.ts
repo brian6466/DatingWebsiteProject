@@ -17,8 +17,9 @@ export class CreateProfileComponent implements OnInit {
 
   profileForm: FormGroup = new FormGroup({});
   interests = ['Hiking', 'Cooking', 'Gaming', 'Traveling', 'Reading'];
+  relationshipStatuses: string[] = ['Long Term Relationship', 'Not Looking for Anything Serious', 'Unsure What I\'m Looking For'];
   selectedInterests: string[] = [];
-  userData: UserInterface | undefined;
+  selectedStatus: string = '';
 
   constructor(private router: Router, private userFirebaseService: UserFirebaseService, private fb: FormBuilder) {
 
@@ -91,6 +92,11 @@ export class CreateProfileComponent implements OnInit {
       imageUrl: data.profilePic
     });
     this.selectedInterests = data.Interests;
+    this.selectedStatus = data.LookingFor
     console.log(this.profileForm)
+  }
+
+  selectRelationshipStatus(status: string): void {
+    this.profileForm.patchValue({ lookingFor: status });
   }
 }

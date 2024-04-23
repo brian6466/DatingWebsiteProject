@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserFirebaseService } from '../shared/userFirebase.service';
 import { UserProfileInterface } from '../interfaces/userProfile.interface';
-//import { initializeApp } from 'firebase-admin/app';
 
 @Component({
   selector: 'app-admin',
@@ -22,7 +21,7 @@ export class AdminComponent {
 
   constructor(private firebaseService: UserFirebaseService) {
     //this.profiles.push(firebaseService.getUsers());
-    
+
   }
 
   banProfile() {

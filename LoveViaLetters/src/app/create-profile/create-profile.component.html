@@ -78,8 +78,13 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="lookingFor">What are you looking for?</label>
-                  <textarea id="lookingFor" formControlName="lookingFor"></textarea>
+                  <label>Select what relationship you are looking for:</label>
+                  <div *ngFor="let status of relationshipStatuses">
+                    <label>
+                      <input type="radio" name="relationshipStatus" [value]="status" [checked]="selectedStatus === status" (change)="selectRelationshipStatus(status)">
+                      {{ status }}
+                    </label>
+                  </div>
                 </div>
               </fieldset>
 
