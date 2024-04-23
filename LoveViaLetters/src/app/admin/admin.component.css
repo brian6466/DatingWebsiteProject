@@ -54,3 +54,82 @@ button[type="submit"] {
   button[type="submit"]:hover {
     background-color: #A0522D;
   }
+
+.admin-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* User list styles */
+.user-list {
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+  .user-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+  }
+
+.user-details {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.user-buttons {
+  margin-top: 5px;
+}
+
+  .user-buttons button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+    .user-buttons button.ban {
+      background-color: #f44336;
+      color: #fff;
+    }
+
+    .user-buttons button.unban {
+      background-color: #4caf50;
+      color: #fff;
+    }
+
+/* Form styles */
+.form-container {
+  margin-top: 20px;
+}
+
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-container input,
+  .form-container textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .form-container button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 3px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+
+    .form-container button:hover {
+      background-color: #0056b3;
+    }

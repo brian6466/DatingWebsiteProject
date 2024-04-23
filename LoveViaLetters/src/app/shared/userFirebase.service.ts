@@ -154,4 +154,20 @@ export class UserFirebaseService {
     }
   }
 
+  async unBanUserById(id: any): Promise<void> {
+    try {
+      const querySnapshot = await getDocs(query(this.usersCollection, where('UserId', '==', id)));
+      if (!querySnapshot.empty) {
+        const userDocRef = querySnapshot.docs[0].ref;
+        await updateDoc(userDocRef, { isBanned: false });
+        console.log(`User with id ${id} has been unBanned.`);
+      } else {
+        console.error(`User with id ${id} not found.`);
+      }
+    } catch (error) {
+      console.error('Error banning user:', error);
+      throw error;
+    }
+  }
+
 }
