@@ -29,10 +29,7 @@ export class HeaderComponent implements OnDestroy {
   constructor(private router: Router, public authService: AuthService, private bannedService: BannedService, private firebaseService: UserFirebaseService) {
     this.subscription = this.bannedService.buttonClick$.subscribe(() => {
       this.handleButtonClick();
-    });
-
-    
-    
+    }); 
   }
 
   ngOnDestroy() {
@@ -40,14 +37,8 @@ export class HeaderComponent implements OnDestroy {
   }
 
   handleButtonClick() {
-    console.log("Header ban var: ", this.bannedService.isBanned())
-    console.log("User being checked: ", this.authService.getUid())
-    //this.banned = this.bannedService.checkBan(this.authService.getUid())
     this.banned = this.bannedService.isBanned()
-    console.log("Admin status header ", this.admin)
     this.admin = this.bannedService.isAdmin()
-    console.log("header ban status, ", this.banned);
-    console.log("header admin, ", this.admin)
   }
 
   logOut() {

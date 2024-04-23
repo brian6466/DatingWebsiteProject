@@ -12,5 +12,6 @@ export interface UserProfileInterface {
   UserId: string;
   isBanned: boolean;
   email: string;
-  isAdmin: boolean
+  isAdmin: boolean;
+  likesReceived: string[];
 }

@@ -73,13 +73,11 @@ export class LoginComponent {
 
             if (currentUserId == this.filteredProfiles[i].UserId && this.filteredProfiles[i].isAdmin == true) {
               this.admin = true;
-              console.log("Admin status login," , this.admin)
               this.bannedService.setAdmin(this.admin)
               this.bannedService.notifyButtonClick()
             }
 
             if (currentUserId == this.filteredProfiles[i].UserId && this.filteredProfiles[i].isBanned == true) {
-              console.log("User Banned")
               this.banned = true;
               this.bannedService.setBanned(this.banned);
               this.authService.logout()
@@ -89,11 +87,7 @@ export class LoginComponent {
           }
           if (this.banned != true) {
             this.router.navigate(["/"]);
-            console.log("User not banned")
-            console.log("user logged in");
-          }
-          
-          
+          }         
         },
         error: (err) => {
           //TODO: Make this error message appear on the login screen, also look into potential error messages that can happen

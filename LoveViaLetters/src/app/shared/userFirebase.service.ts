@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where} from '@angular/fire/firestore'
+import {arrayUnion, collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where} from '@angular/fire/firestore'
 import {getDownloadURL, ref, Storage, uploadBytes, uploadString} from '@angular/fire/storage'
 import {UserInterface} from "../interfaces/user.interface";
 import {EMPTY, Observable} from "rxjs";
@@ -117,13 +117,33 @@ export class UserFirebaseService {
     }
   }
 
+  async addLike(userId: any, likedId: any): Promise<void> {
+    try {
+      // Query Firestore to find the document of the user being liked
+      const querySnapshot = await getDocs(query(collection(this.firestore, 'users'), where('UserId', '==', likedId)));
+
+      if (!querySnapshot.empty) {
+        // If the user being liked exists, update their document to add the userId to the likesReceived array
+        const userDocRef = querySnapshot.docs[0].ref;
+        await updateDoc(userDocRef, {
+          likesReceived: arrayUnion(userId.toString()) // Use arrayUnion with the userId to add it to the likesReceived array
+        });
+        console.log(`User with id ${userId} has liked ${likedId}.`);
+      } else {
+        console.error(`User with id ${likedId} not found.`);
+      }
+    } catch (error) {
+      console.error('Error adding like:', error);
+    }
+  }
+
 
   async banUserById(id: any): Promise<void> {
     try {
       const querySnapshot = await getDocs(query(this.usersCollection, where('UserId', '==', id)));
       if (!querySnapshot.empty) {
         const userDocRef = querySnapshot.docs[0].ref;
-        await updateDoc(userDocRef, { isBanned: true }); // Update isBanned field to true
+        await updateDoc(userDocRef, { isBanned: true });
         console.log(`User with id ${id} has been banned.`);
       } else {
         console.error(`User with id ${id} not found.`);

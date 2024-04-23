@@ -57,18 +57,9 @@ export class AuthService {
   getUid() {
     return this.firebaseAuth.currentUser?.uid
   }
-  //loadProfiles() {
 
-
-  //  this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
-  //    this.profiles = users.filter(user => user.UserId);
-  //    if (this.profiles.length > 0) {
-  //      this.profileData = this.profiles[this.currentProfileIndex];
-  //      this.filteredProfiles = this.profiles
-  //      console.log("Load Profiles called, ", this.filteredProfiles)
-  //    }
-  //  });
-
-  //}
+  getUser() {
+    return this.firebaseAuth.currentUser
+  }
 
 }
