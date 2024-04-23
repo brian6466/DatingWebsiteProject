@@ -28,6 +28,7 @@ export class SwipePageComponent implements OnInit{
   profileData: UserProfileInterface | null = null;
   currentUser: UserProfileInterface | null = null;
   user: UserProfileInterface | undefined;
+  showModal: boolean = false;
   
 
 
@@ -71,6 +72,8 @@ export class SwipePageComponent implements OnInit{
       for (let i = 0; i < Math.min(this.user.likesReceived.length, this.filteredProfiles.length); i++) {
         if (this.user.likesReceived[i] == this.filteredProfiles[this.currentProfileIndex]?.UserId) {
           console.log("Match")
+          this.showModal = true;
+          break;
         }
       }
     }
@@ -98,4 +101,9 @@ export class SwipePageComponent implements OnInit{
       this.filteredProfiles = result.data;
     });
   }
+
+  closeModal(): void {
+    this.showModal = false;
+  }
+
 }

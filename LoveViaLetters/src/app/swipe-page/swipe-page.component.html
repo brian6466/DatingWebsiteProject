@@ -9,46 +9,53 @@
 </head>
 <body>
 
-<button (click)="openSearchDialog()" class="filter-button">
-  <img src="assets/filter.png" alt="Filter Profiles">
-</button>
+  <button (click)="openSearchDialog()" class="filter-button">
+    <img src="assets/filter.png" alt="Filter Profiles">
+  </button>
 
-<div *ngIf="profileData" class="card-container" id="medieval-border">
-  <div class="card">
-    <img [src]="profileData.profilePic" alt="Profile Image">
-    <div style="padding: 10px;">
-      <h2>{{ profileData.Name }}, {{ profileData.Age }}</h2>
-      <p>Gender: {{ profileData.Gender }}</p>
-      <p>Height: {{ profileData.Height }}</p>
-      <p>Description: {{ profileData.Description }}</p>
-      <p>Drinks: {{ profileData.Drink ? 'Yes' : 'No' }}</p>
-      <p>Smokes: {{ profileData.Smoke ? 'Yes' : 'No' }}</p>
-      <p>Interests:</p>
-      <ul>
-        <li *ngFor="let interest of profileData.Interests">{{ interest }}</li>
-      </ul>
-      <p>Looking for: {{ profileData.LookingFor }}</p>
-    </div>
-  </div>
-</div>
-
-<div class="button-container" *ngIf="profileData">
-  <button class="btn-like" (click)="swipe('like')">Like</button>
-  <button class="btn-dislike" (click)="swipe('dislike')">Dislike</button>
-</div>
-
-
-<div *ngIf="!profileData" class="card-container" id="medieval-border" name="noSwipes">
-
-  <div class="card">
-    <img src="assets/sadFace.jpg" alt="No Swipes">
-    <div style="padding: 10px;">
-      <p>No more swipes left</p>
+  <div *ngIf="profileData" class="card-container" id="medieval-border">
+    <div class="card">
+      <img [src]="profileData.profilePic" alt="Profile Image">
+      <div style="padding: 10px;">
+        <h2>{{ profileData.Name }}, {{ profileData.Age }}</h2>
+        <p>Gender: {{ profileData.Gender }}</p>
+        <p>Height: {{ profileData.Height }}</p>
+        <p>Description: {{ profileData.Description }}</p>
+        <p>Drinks: {{ profileData.Drink ? 'Yes' : 'No' }}</p>
+        <p>Smokes: {{ profileData.Smoke ? 'Yes' : 'No' }}</p>
+        <p>Interests:</p>
+        <ul>
+          <li *ngFor="let interest of profileData.Interests">{{ interest }}</li>
+        </ul>
+        <p>Looking for: {{ profileData.LookingFor }}</p>
+      </div>
     </div>
   </div>
 
-</div>
+  <div class="button-container" *ngIf="profileData">
+    <button class="btn-like" (click)="swipe('like')">Like</button>
+    <button class="btn-dislike" (click)="swipe('dislike')">Dislike</button>
+  </div>
 
+
+  <div *ngIf="!profileData" class="card-container" id="medieval-border" name="noSwipes">
+
+    <div class="card">
+      <img src="assets/sadFace.jpg" alt="No Swipes">
+      <div style="padding: 10px;">
+        <p>No more swipes left</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="showModal" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Congratulations! You've got a match!</h2>
+      <!-- Add any additional content for the modal here -->
+    </div>
+  </div>
 
 </body>
 </html>
