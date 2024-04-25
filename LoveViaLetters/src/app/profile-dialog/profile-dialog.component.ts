@@ -43,11 +43,13 @@ export class ProfileDialogComponent {
   drinksPreference: string = '';
   smokesPreference: string = '';
   interests = ['Hiking', 'Cooking', 'Gaming', 'Traveling', 'Reading'];
+  relationshipStatuses: string[] = ['Long Term Relationship', 'Not Looking for Anything Serious', 'Unsure What I\'m Looking For'];
   selectedInterests: { [key: string]: boolean } = {};
   unfilteredProfiles: UserProfileInterface[] = [];
   filteredProfiles: UserProfileInterface[] = [];
   minAge: number = 18;
   maxAge: number = 100;
+  selectedStatuses: { [key: string]: boolean } = {};
 
   constructor(
     public dialogRef: MatDialogRef<ProfileDialogComponent>,
@@ -60,6 +62,9 @@ export class ProfileDialogComponent {
   ngOnInit(): void {
     this.interests.forEach(interest => {
       this.selectedInterests[interest] = true;
+    });
+    this.relationshipStatuses.forEach(status => {
+      this.selectedStatuses[status] = true;
     });
   }
 
@@ -95,10 +100,20 @@ export class ProfileDialogComponent {
         }
 
         if (Object.keys(this.selectedInterests).length === 0) {
-          this.filteredProfiles.push(profile);
         } else {
           const hasSelectedInterest = profile.Interests.some(interest => this.selectedInterests[interest]);
-          if (hasSelectedInterest) {
+          if (!hasSelectedInterest) {
+            return
+          }
+        }
+
+        if (Object.keys(this.selectedStatuses).length === 0) {
+          this.filteredProfiles.push(profile);
+        } else {
+          const hasSelectedStatus = Object.keys(this.selectedStatuses).some(status => {
+            return this.selectedStatuses[status] && profile.LookingFor === status;
+          });
+          if (hasSelectedStatus) {
             this.filteredProfiles.push(profile);
           }
         }

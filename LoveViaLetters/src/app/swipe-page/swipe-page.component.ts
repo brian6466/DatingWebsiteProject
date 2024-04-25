@@ -5,6 +5,8 @@ import {UserProfileInterface} from "../interfaces/userProfile.interface";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {ProfileDialogComponent} from "../profile-dialog/profile-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import { User, user } from '@angular/fire/auth';
+
 
 @Component({
   selector: 'app-swipe-page',
@@ -24,11 +26,21 @@ export class SwipePageComponent implements OnInit{
   filteredProfiles: UserProfileInterface[] = [];
   currentProfileIndex: number = 0;
   profileData: UserProfileInterface | null = null;
+  currentUser: UserProfileInterface | null = null;
+  user: UserProfileInterface | undefined;
+  showModal: boolean = false;
+  
 
 
-  constructor(private firebaseService: UserFirebaseService, private authService: AuthService, private dialog: MatDialog) { }
+  constructor(private firebaseService: UserFirebaseService, private authService: AuthService, private dialog: MatDialog) {
+    console.log("Constructor: ",this.user)
+  }
 
   ngOnInit(): void {
+
+
+
+
     const currentUserId = this.authService.getUid()
     if (currentUserId) {
       this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
@@ -36,17 +48,39 @@ export class SwipePageComponent implements OnInit{
         if (this.profiles.length > 0) {
           this.profileData = this.profiles[this.currentProfileIndex];
           this.filteredProfiles = this.profiles
+          
         }
       });
     }
 
+    this.firebaseService.getUser().subscribe(
+      (user: UserProfileInterface | undefined) => {
+        this.user = user;
+        console.log('User data:', this.user);
+      },
+      error => {
+        console.error('Error fetching user data:', error);
+      }
+    );
+
+
   }
 
   swipe(action: string): void {
-    if (action === 'like') {
-      //TODO: add logic here
+    if (action === 'like' && this.user && this.user.likesReceived && this.filteredProfiles) {
+      this.firebaseService.addLike(this.authService.getUid(), this.filteredProfiles[this.currentProfileIndex].UserId)
+      for (let i = 0; i < Math.min(this.user.likesReceived.length, this.filteredProfiles.length); i++) {
+        if (this.user.likesReceived[i] == this.filteredProfiles[this.currentProfileIndex]?.UserId) {
+          console.log("Match")
+          this.showModal = true;
+          break;
+        }
+      }
     }
 
+    
+    
+    
     this.currentProfileIndex++;
     if (this.currentProfileIndex < this.filteredProfiles.length) {
       this.profileData = this.filteredProfiles[this.currentProfileIndex];
@@ -66,6 +100,10 @@ export class SwipePageComponent implements OnInit{
       this.profileData = result.data[0];
       this.filteredProfiles = result.data;
     });
+  }
+
+  closeModal(): void {
+    this.showModal = false;
   }
 
 }

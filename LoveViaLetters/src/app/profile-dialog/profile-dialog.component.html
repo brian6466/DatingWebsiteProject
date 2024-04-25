@@ -45,6 +45,11 @@
   <div *ngFor="let interest of interests">
     <mat-checkbox [(ngModel)]="selectedInterests[interest]">{{ interest }}</mat-checkbox>
   </div>
+
+  <mat-label>Looking for:</mat-label>
+  <div *ngFor="let status of relationshipStatuses">
+    <mat-checkbox [(ngModel)]="selectedStatuses[status]">{{ status }}</mat-checkbox>
+  </div>
 </div>
 
 <div mat-dialog-actions>

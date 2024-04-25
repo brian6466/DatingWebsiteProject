@@ -10,4 +10,8 @@ export interface UserProfileInterface {
   Smoke: boolean;
   profilePic: string;
   UserId: string;
+  isBanned: boolean;
+  email: string;
+  isAdmin: boolean;
+  likesReceived: string[];
 }
