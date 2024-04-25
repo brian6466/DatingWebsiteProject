@@ -11,10 +11,81 @@
     width: 100%;
     margin: auto;
     background-image: linear-gradient(to right, #f5e6cc, #ffe4b5);
-    display: flex
-    align-items center;
+    display: flex;
+    align-items:center;
     justify-content: center;
-    margin-top: 2rem;
-    letter-spacing: 0.5px;
     height: 100vh;
+}
+
+.message-inbox{
+    background: #e1e0be;
+    width: 60%;
+    min-width: 250px;
+    display: flex;
+
+}
+
+.col-1{
+    flex:1;
+
+}
+
+.col-2{
+    flex-basis:250px;
+    background:#70705f;
+}
+
+.messsage-row{
+    display: flex;
+    align-items: center;
+    margin: 40px;
+
+}
+
+.message-text{
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px 40px;
+    border-radius: 20px;
+    flex-basis: 70%;
+    font-weight:300;
+
+}
+
+.message-text h2{
+    font-weight: 400;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.message-image{
+    width: 50px;
+    border-radius: 50%;
+    margin:0 20px;
+}
+
+.message-row2{
+    justify-content: flex-end;
+}
+
+.col-1 input{
+    width: 90%;
+    padding: 10px 20px;
+    border: 1;
+    border-radius: 20px;
+    margin: 20px;
+    font-size: 16px;
+}
+
+.col-2{
+    height: 100px;
+}
+.col-2 h3{
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 400;
+}
+
+.col-2 ul{
+    list-style: none;
+    padding: 30px;
 }
