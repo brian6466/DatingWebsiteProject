@@ -1,10 +1,11 @@
 import {inject, Injectable} from '@angular/core';
-import {arrayUnion, collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where} from '@angular/fire/firestore'
+import { arrayUnion, collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where, deleteDoc } from '@angular/fire/firestore'
 import {getDownloadURL, ref, Storage, uploadBytes, uploadString} from '@angular/fire/storage'
 import {UserInterface} from "../interfaces/user.interface";
 import {EMPTY, Observable} from "rxjs";
 import {AuthService} from "./auth.service";
 import { UserProfileInterface } from '../interfaces/userProfile.interface';
+
 
 
 @Injectable({
@@ -169,5 +170,27 @@ export class UserFirebaseService {
       throw error;
     }
   }
+
+  async setAdmin(status: boolean, id: any): Promise<void> {
+    try {
+      const querySnapshot = await getDocs(query(this.usersCollection, where('UserId', '==', id)));
+      if (!querySnapshot.empty) {
+        const userDocRef = querySnapshot.docs[0].ref;
+        await updateDoc(userDocRef, { isAdmin: status });
+        console.log(`User with id ${id} has admin status of ${status}.`);
+      } else {
+        console.error(`User with id ${id} not found.`);
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async deleteUser(userID: any) {
+    await deleteDoc(doc(this.firestore, 'users', userID))
+    console.log("User with ID: ", userID, " deleted")
+  } 
+
+  
 
 }

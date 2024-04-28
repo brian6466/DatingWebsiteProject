@@ -38,7 +38,25 @@
   </div>
 
 
-  <div *ngIf="!profileData" class="card-container" id="medieval-border" name="noSwipes">
+  <div *ngIf="showModal && profileData" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h1>Congratulations! You've got a match!</h1>
+      <h2>You matched with {{profileData.Name}}</h2>
+      <div *ngIf="profileData">
+        <div class="profile-picture-container">
+          <img [src]="pic" alt="Profile Image" class="profile-picture">
+
+        </div>
+
+
+      </div>
+
+      <!-- Add any additional content for the modal here -->
+    </div>
+  </div>
+
+  <div *ngIf="!profileData && !showModal" class="card-container" id="medieval-border" name="noSwipes">
 
     <div class="card">
       <img src="assets/sadFace.jpg" alt="No Swipes">
@@ -47,14 +65,6 @@
       </div>
     </div>
 
-  </div>
-
-  <div *ngIf="showModal" class="modal">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h2>Congratulations! You've got a match!</h2>
-      <!-- Add any additional content for the modal here -->
-    </div>
   </div>
 
 </body>

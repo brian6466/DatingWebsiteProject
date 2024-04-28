@@ -28,6 +28,7 @@ export class RegisterComponent {
     if (this.fullName != "" && this.emailRegex.test(this.email) && this.password != "") {
       this.authService.register(this.email, this.password, this.fullName).subscribe({
         next: () => {
+          this.userFirebaseService.setAdmin(false, this.authService.getUid())
           this.router.navigate(["create-profile"]);
         //   this.userFirebaseService.createUser(
         //     this.fullName,

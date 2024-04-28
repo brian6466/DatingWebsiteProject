@@ -5,6 +5,7 @@ import {CreateProfileComponent} from "./create-profile/create-profile.component"
 import { SwipePageComponent } from './swipe-page/swipe-page.component';
 import { AdminComponent } from './admin/admin.component';
 import {HomePageComponennt} from "./home-page/home-page.component";
+import { MessagesComponent } from './messages/messages.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,11 @@ export const routes: Routes = [
     path: "admin",
     component: AdminComponent
   },
+  {
+    path: "messages",
+    component: MessagesComponent
+  }
+
 
 
 ];

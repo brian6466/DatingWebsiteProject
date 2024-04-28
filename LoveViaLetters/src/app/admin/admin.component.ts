@@ -55,11 +55,8 @@ export class AdminComponent implements OnInit {
     this.firebaseService.unBanUserById(user);
   }
 
-  unBanProfileById() {
-    this.firebaseService.unBanUserById(this.userId);
-  }
-
-  banProfileById() {
-    this.firebaseService.unBanUserById(this.userId);
+  deleteUser(user: string) {
+    console.log(user)
+    this.firebaseService.deleteUser(user)
   }
 }

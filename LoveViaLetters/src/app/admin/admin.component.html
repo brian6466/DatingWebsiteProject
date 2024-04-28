@@ -37,11 +37,12 @@
     <ul class="user-list">
       <li *ngFor="let profile of filteredProfiles" class="user-item">
         <div class="user-details">
-          {{ profile.Name }} - {{ profile.UserId }} - Ban Status : {{profile.isBanned}}
+          {{ profile.Name }} - {{ profile.UserId }} - Ban Status : {{profile.isBanned}} 
         </div>
         <div class="user-buttons">
           <button (click)="banProfile(profile.UserId)" class="ban">Ban</button>
           <button (click)="unBanProfile(profile.UserId)" class="unban">Unban</button>
+          <button (click)="deleteUser(profile.UserId)" class="delete">Delete</button>
         </div>
       </li>
     </ul>

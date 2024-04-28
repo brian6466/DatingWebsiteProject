@@ -102,6 +102,11 @@ button[type="submit"] {
       color: #fff;
     }
 
+    .user-buttons button.delete {
+      background-color: #0a0a0a;
+      color: #fff;
+    }
+
 /* Form styles */
 .form-container {
   margin-top: 20px;

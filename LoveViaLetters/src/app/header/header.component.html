@@ -4,11 +4,12 @@
     <a routerLink="/" routerLinkActive="active" class="logo">Logo</a>
     <ul class="nav-links">
       <li *ngIf="authService.currentUserSignal() && !banned"><a routerLink="/create-profile" routerLinkActive="active">Create Profile</a></li>
-      <li *ngIf="authService.currentUserSignal() == null || banned"><a  routerLink="/login" routerLinkActive="active">Log In</a></li>
+      <li *ngIf="authService.currentUserSignal() == null || banned"><a routerLink="/login" routerLinkActive="active">Log In</a></li>
       <li *ngIf="authService.currentUserSignal() && !banned"><a (click)="logOut()" routerLink="/login" routerLinkActive="active">Log Out</a></li>
       <li *ngIf="authService.currentUserSignal() == null || banned"><a routerLink="/register" routerLinkActive="active">Sign Up</a></li>
       <li *ngIf="authService.currentUserSignal() && !banned"><a routerLink="/swipe-page" routerLinkActive="active">Swipe Page</a></li>
       <li *ngIf="authService.currentUserSignal() && admin"><a routerLink="/admin" routerLinkActive="active">Admin Page</a></li>
+      <li *ngIf="authService.currentUserSignal() && !banned"><a routerLink="/messages" routerLinkActive="active">Messages</a></li>
     </ul>
   </div>
 </nav>

@@ -42,24 +42,51 @@
     <h1>LoveViaLetters</h1>
     <img src="LoveViaLettersLogo.jpg" alt=" " />
   </header>
-<div class="container mt-5">
-  <div class="d-flex justify-content-start">
-    <div id="medieval-border">
-      <div class="card-header">LvL</div>
-      <div class="body">
-        <p>
-          This is LoveViaLetters, the place where you will find people who 
-          adore the simple arts of the medieval times. We aim to please and
-          meet the standard of your medieval fantasies and hope that you 
-          find you chivalourus knight in shining armor or your fair maiden,  
-          or who knows you might just be looking for someone who has
-          a love from dragons just like you, whatever it is you seek you will 
-          find it here.
-        </p>
+  <div class="container mt-5">
+    <div class="d-flex justify-content-start">
+      <div id="medieval-border">
+        <div class="card-header">LvL</div>
+        <div class="body">
+          <p>
+            This is LoveViaLetters, the place where you will find people who
+            adore the simple arts of the medieval times. We aim to please and
+            meet the standard of your medieval fantasies and hope that you
+            find you chivalourus knight in shining armor or your fair maiden,
+            or who knows you might just be looking for someone who has
+            a love from dragons just like you, whatever it is you seek you will
+            find it here.
+          </p>
+        </div>
       </div>
     </div>
+
+
+    <div>
+      <h1>Recommened Profiles</h1>
+      <h2>Look out for these profiles in the swipe page</h2>
+      <h2>They have been selected based on your interests</h2>
+    </div>
+
+    <div *ngIf="!authService.currentUserSignal()">>
+      <h1> Please Login to see list</h1>
+    </div>
+
+    <div *ngIf="authService.currentUserSignal()">
+      
+      <ul class="user-list">
+        <li *ngFor="let profile of filteredInterestProfiles" class="user-item">
+          <div class="user-details">
+            {{ profile.Name }} - {{ profile.Interests }}
+          </div>
+          <!--<img [src]="profile.profilePic" />-->
+          <div class="profile-picture-container">
+            <img [src]="profile.profilePic" alt="Profile Picture" class="profile-picture">
+          </div>
+        </li>
+      </ul>
+    </div>
+
   </div>
-</div>
 
 <!--<img src="banner.png" class="img-fluid" alt="banner" />-->
 </body>
