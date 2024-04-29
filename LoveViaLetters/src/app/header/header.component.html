@@ -1,7 +1,10 @@
 
 <nav class="navbar">
   <div class="container">
-    <a routerLink="/" routerLinkActive="active" class="logo">Logo</a>
+    <a routerLink="/" routerLinkActive="active" class="logo">
+      <img src="assets/favicon2.png" alt="Logo"
+      style="width: 50px; height: auto;">
+    </a>
     <ul class="nav-links">
       <li *ngIf="authService.currentUserSignal() && !banned"><a routerLink="/create-profile" routerLinkActive="active">Create Profile</a></li>
       <li *ngIf="authService.currentUserSignal() == null || banned"><a routerLink="/login" routerLinkActive="active">Log In</a></li>
