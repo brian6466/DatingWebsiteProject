@@ -33,21 +33,35 @@ export class HomePageComponennt implements OnInit{
   }
 
   ngOnInit(): void {
+
+
     this.userId = this.authService.getUid()
 
-    this.loadProfiles()
-    // Fetch user data asynchronously
-    this.firebaseService.getUser().subscribe(
-      (user: UserProfileInterface | undefined): void => {
-
-        this.user = user;
-
-        this.getInterests();
-      },
-      error => {
-        console.error('Error fetching user data:', error);
+    this.firebaseService.getUser().subscribe(data => {
+      console.log(data)
+      if (data){
+        if (data?.Interests) {
+          this.interests = data?.Interests
+          console.log(this.interests)
+          this.triggerFilterProfilesByInterests();
+        }
       }
-    );
+
+
+    })
+
+    this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
+      this.profiles = users.filter(user => user.UserId !== this.userId);
+      if (this.profiles.length > 0) {
+        this.filteredProfiles = this.profiles
+        console.log(this.filteredProfiles)
+        this.triggerFilterProfilesByInterests();
+      }
+
+    });
+    //this.loadProfiles()
+    // Fetch user data asynchronously
+
   }
 
   loadProfiles() {
@@ -62,9 +76,10 @@ export class HomePageComponennt implements OnInit{
   }
 
   filterProfilesByInterests() {
-    if (this.user?.Interests != null && this.user.Interests.length > 0) {
+    console.log(this.interests)
+    if (this.interests != null && this.interests.length > 0) {
 
-      const MIN_COMMON_INTERESTS = 2; // Minimum number of common interests required
+      const MIN_COMMON_INTERESTS = 2;
 
 
       this.filteredInterestProfiles = this.filteredProfiles.filter(profile =>
@@ -73,10 +88,11 @@ export class HomePageComponennt implements OnInit{
 
     } else {
 
-
-      this.loadProfiles()
-      this.filteredProfiles = this.profiles;
+      //
+      // this.loadProfiles()
+      // this.filteredProfiles = this.profiles;
     }
+    console.log(this.filteredInterestProfiles)
   }
 
   countCommonInterests(profileInterests: string[], userInterests: string[]): number {
@@ -89,4 +105,9 @@ export class HomePageComponennt implements OnInit{
   }
 
 
+  private triggerFilterProfilesByInterests() {
+    if (this.interests.length > 0 && this.profiles.length > 0) {
+      this.filterProfilesByInterests();
+    }
+  }
 }

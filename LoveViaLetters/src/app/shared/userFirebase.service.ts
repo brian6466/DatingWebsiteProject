@@ -94,6 +94,8 @@ export class UserFirebaseService {
   getUser(): Observable<UserProfileInterface | undefined> {
     console.log('getUser called')
     const userId = this.auth.getUid();
+    console.log(this.auth)
+    console.log(userId)
     if (userId) {
       const userDocRef = doc(this.firestore, 'users', userId);
       return new Observable<UserProfileInterface | undefined>(observer => {

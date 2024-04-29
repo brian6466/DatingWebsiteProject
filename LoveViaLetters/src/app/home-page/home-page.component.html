@@ -37,11 +37,6 @@
 </head>
 
 <body>
-  
-  <header>
-    <h1>LoveViaLetters</h1>
-    <img src="LoveViaLettersLogo.jpg" alt=" " />
-  </header>
   <div class="container mt-5">
     <div class="d-flex justify-content-start">
       <div id="medieval-border">
@@ -72,7 +67,7 @@
     </div>
 
     <div *ngIf="authService.currentUserSignal()">
-      
+
       <ul class="user-list">
         <li *ngFor="let profile of filteredInterestProfiles" class="user-item">
           <div class="user-details">
