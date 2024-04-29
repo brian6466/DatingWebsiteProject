@@ -31,9 +31,11 @@
       </div>
 
       <div>
-        <h2><b>Recommended Users</b></h2>
-        <p>Look out for these profiles in the swipe page</p>
-        <p>They have been selected based on your interests</p>
+        <div class="card-header">Recommended Users</div>
+        <div class="card-body">
+          <p>Look out for these profiles in the swipe page</p>
+          <p>They have been selected based on your interests</p>
+        </div>
       </div>
 
       <div *ngIf="!authService.currentUserSignal()">
