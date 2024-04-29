@@ -1,53 +1,24 @@
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Messages</title>
-  <!-- Bootstrap CSS -->
-
-  </head>
-  <body>
-
-    <div class="container">
-      <div class="message-inbox">
-        <div class="col-1">
-          <div class="message-row">
-            <div class="message-text">
-              <h2><b>JK Rowling</b></h2>
-              <p>I dislike Emma watson and the rest of the Harry Potter cast.</p>
-            </div>
-            <img src="./datingsim1.png" class="message-image" />
-          </div>
-          <div class="message-row message-row2">
-            <div class="message-text">
-              <h2><b>Daniel Stalon</b></h2>
-              <p>Bruh..</p>
-            </div>
-            <img src="./datingsim2.png" class="message-image" />
-          </div><div class="message-row">
-            <div class="message-text">
-              <h2><b>JK Rowling</b></h2>
-              <p>Don't "bruh" me fam.</p>
-            </div>
-            <img src="./datingsim1.png" class="message-image" />
-          </div>
-          <div>
-            <input type="text" placeholder="Enter your message here" class="message-input">
-          </div>
-        </div>
-        <div class="col-2">
-          <h3>Matches</h3>
-          <ul>
-            <li>JK Rowling</li>
-            <hr>
-            <li>Emma Stone</li>
-            <hr>
-            <li>Derek Bell</li>
-          </ul>
-        </div>
+<div class="container">
+  <div class="match-list">
+    <h2>Matched Users</h2>
+    <ul>
+      <li *ngFor="let user of matchedUsers">
+        <button (click)="openChat(user)">Chat with {{ user.Name }}</button>
+      </li>
+    </ul>
+  </div>
+  <div class="chat" *ngIf="selectedUser">
+    <h2>Chatting with {{ selectedUser?.Name || 'Unknown User' }}</h2>
+    <div class="messages">
+      <div *ngFor="let message of chatMessages">
+        <p [ngClass]="{'sent': message.senderId === authService.getUid(), 'received': message.senderId !== authService.getUid()}">
+          {{ message.content }}
+        </p>
       </div>
-
     </div>
-
-  </body>
-
+    <form (submit)="sendMessage()">
+      <input type="text" [(ngModel)]="newMessage" placeholder="Type a message..." name="chat" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</div>
