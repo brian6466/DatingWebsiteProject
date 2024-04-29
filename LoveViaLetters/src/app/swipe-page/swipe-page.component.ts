@@ -35,7 +35,6 @@ export class SwipePageComponent implements OnInit{
 
 
   constructor(private firebaseService: UserFirebaseService, private authService: AuthService, private dialog: MatDialog) {
-    //this.loadData()
     this.profileData = null
     this.userId = this.authService.getAuthToken();
     console.log("Constructor: ",this.user)
@@ -43,23 +42,21 @@ export class SwipePageComponent implements OnInit{
 
   ngOnInit(): void {
 
-    
+
     this.profileData = null
 
-    //const currentUserId = this.authService.getUid()
-    //if (currentUserId) {
-    //  this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
-    //    this.profiles = users.filter(user => user.UserId !== currentUserId);
-    //    if (this.profiles.length > 0) {
-    //      this.profileData = this.profiles[this.currentProfileIndex];
-    //      this.filteredProfiles = this.profiles
-
-    //    }
-    //  });
-    //}
-
-    this.loadData()
-    
+    const currentUserId = this.authService.getUid()
+    if (currentUserId) {
+     this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
+       this.profiles = users.filter(user => user.UserId !== currentUserId);
+       if (this.profiles.length > 0) {
+         if (this.filteredProfiles.length == 0) {
+           this.profileData = this.profiles[this.currentProfileIndex];
+           this.filteredProfiles = this.profiles
+         }
+       }
+     });
+    }
 
     this.firebaseService.getUser().subscribe(
       (user: UserProfileInterface | undefined) => {
@@ -72,7 +69,7 @@ export class SwipePageComponent implements OnInit{
       }
     );
 
-    
+
   }
 
   swipe(action: string): void {
@@ -126,23 +123,5 @@ export class SwipePageComponent implements OnInit{
     this.showModal = false;
   }
 
-  loadData() {
-
-    if (this.userId) {
-      this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
-        // Filter out profiles based on the current user's ID and exclude matches
-        this.profiles = users.filter(user => {
-          // Exclude profiles where the user is the current user or in the matches list
-          return user.UserId !== this.userId && !this.user?.Matches.includes(user.UserId);
-        });
-        if (this.profiles.length > 0) {
-          // Assign filtered profiles after filtering operation is completed
-          this.filteredProfiles = this.profiles;
-          this.profileData = this.filteredProfiles[this.currentProfileIndex];
-          console.log(this.filteredProfiles);
-        }
-      });
-    }
-  }
 
 }
