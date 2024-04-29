@@ -13,11 +13,10 @@ import {
   where,
   deleteDoc,
   addDoc,
-  Query, or, DocumentData, and
+  and
 } from '@angular/fire/firestore'
-import {getDownloadURL, ref, Storage, uploadBytes, uploadString} from '@angular/fire/storage'
-import {UserInterface} from "../interfaces/user.interface";
-import {EMPTY, from, Observable} from "rxjs";
+import {getDownloadURL, ref, Storage, uploadBytes} from '@angular/fire/storage'
+import {EMPTY, Observable} from "rxjs";
 import {AuthService} from "./auth.service";
 import {UserProfileInterface} from '../interfaces/userProfile.interface';
 import {ChatMessageInterface} from "../interfaces/chatMessage.interface";
@@ -33,8 +32,6 @@ export class UserFirebaseService {
   auth = inject(AuthService)
   usersCollection = collection(this.firestore, 'users')
   messagesCollection = collection(this.firestore, 'messages')
-
-  //Ignore how messy this file is lol
 
   async createProfileFromForm(formData: any): Promise<void> {
     try {
@@ -88,11 +85,6 @@ export class UserFirebaseService {
     });
   }
 
-
-  loadFile() {
-
-  }
-
   getUsers(): Observable<UserProfileInterface[]> {
     return collectionData(this.usersCollection, {
       idField: 'id'
@@ -119,20 +111,6 @@ export class UserFirebaseService {
       });
     } else {
       return EMPTY;
-    }
-  }
-
-
-  async createUser(name: string, email: string, userId: any): Promise<void> {
-    try {
-      await setDoc(doc(this.firestore, 'users', userId), {
-        name: name,
-        email: email,
-        isBanned: false
-      });
-    } catch (error) {
-      console.error('Error creating new user document: ', error);
-      throw error;
     }
   }
 
@@ -207,31 +185,6 @@ export class UserFirebaseService {
   async deleteUser(userID: any) {
     await deleteDoc(doc(this.firestore, 'users', userID))
     console.log("User with ID: ", userID, " deleted")
-  }
-
-
-  async createMatch(UserId1: string | undefined, UserId2: string) {
-    try {
-      await addDoc(collection(this.firestore, 'matches'),
-        {
-          userId1: UserId1,
-          userId2: UserId2
-        });
-    } catch (error) {
-      console.error('Error creating new user document: ', error);
-      throw error;
-    }
-  }
-
-  async getMatchesForUser(userId: string | undefined) {
-    const matchesArray: DocumentData[] = []
-    const q = query(collection(this.firestore, "matches"), or(where("userId1", "==", userId), where("userId2", "==", userId)));
-
-    const queryResult =  await getDocs(q)
-    queryResult.docs.map((matches) =>
-        matchesArray.push(matches.data())
-      );
-    return matchesArray;
   }
 
   async addMatch(userId: any, MatchedId: any): Promise<void> {

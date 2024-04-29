@@ -5,7 +5,6 @@ import {UserProfileInterface} from "../interfaces/userProfile.interface";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {ProfileDialogComponent} from "../profile-dialog/profile-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import { User, user } from '@angular/fire/auth';
 
 
 @Component({
@@ -70,7 +69,6 @@ export class SwipePageComponent implements OnInit{
 
   swipe(action: string): void {
     this.showModal = false;
-    console.log("liked")
     console.log(this.user)
     if (action === 'like' && this.user && this.filteredProfiles) {
       console.log('liked')

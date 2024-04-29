@@ -1,4 +1,4 @@
-import {Component, NgIterable, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserFirebaseService} from "../shared/userFirebase.service";
 import {AuthService} from "../shared/auth.service";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
@@ -41,7 +41,6 @@ export class MessagesComponent implements OnInit {
 
   openChat(user: UserProfileInterface) {
     this.selectedUser = user;
-    // Simulate loading chat messages from a service
     this.loadChatMessages();
   }
 
