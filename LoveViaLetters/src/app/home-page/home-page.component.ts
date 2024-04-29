@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { RouterLinkActive, RouterLink } from "@angular/router";
 import { UserProfileInterface } from "../interfaces/userProfile.interface";
 import { UserFirebaseService } from "../shared/userFirebase.service";
 import { AuthService } from "../shared/auth.service";
 import { NgForOf, NgIf, NgOptimizedImage } from "@angular/common";
-import { getAuth } from "@angular/fire/auth";
 
 @Component({
   selector: 'app-home-page',
@@ -31,7 +29,7 @@ export class HomePageComponennt implements OnInit{
   interests: string[] = []
 
   constructor(private firebaseService: UserFirebaseService, public authService: AuthService) {
-    
+
   }
 
   ngOnInit(): void {
@@ -44,7 +42,7 @@ export class HomePageComponennt implements OnInit{
 
         this.user = user;
 
-        this.getInterests();       
+        this.getInterests();
       },
       error => {
         console.error('Error fetching user data:', error);
@@ -52,14 +50,14 @@ export class HomePageComponennt implements OnInit{
     );
   }
 
-  loadProfiles() {   
+  loadProfiles() {
       this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
         this.profiles = users.filter(user => user.UserId !== this.userId);
         if (this.profiles.length > 0) {
           this.filteredProfiles = this.profiles
           this.filterProfilesByInterests();
         }
-        
+
       });
   }
 
@@ -67,7 +65,7 @@ export class HomePageComponennt implements OnInit{
     if (this.user?.Interests != null && this.user.Interests.length > 0) {
 
       const MIN_COMMON_INTERESTS = 2; // Minimum number of common interests required
-      
+
 
       this.filteredInterestProfiles = this.filteredProfiles.filter(profile =>
         this.countCommonInterests(profile.Interests, this.interests) >= MIN_COMMON_INTERESTS
