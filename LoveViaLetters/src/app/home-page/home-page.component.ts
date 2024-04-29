@@ -35,7 +35,7 @@ export class HomePageComponennt implements OnInit{
   }
 
   ngOnInit(): void {
-    this.userId = this.authService.getAuthToken()
+    this.userId = this.authService.getUid()
 
     this.loadProfiles()
     // Fetch user data asynchronously

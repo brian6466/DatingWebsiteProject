@@ -37,7 +37,7 @@ export class SwipePageComponent implements OnInit{
   constructor(private firebaseService: UserFirebaseService, private authService: AuthService, private dialog: MatDialog) {
     //this.loadData()
     this.profileData = null
-    this.userId = this.authService.getAuthToken();
+    this.userId = this.authService.getUid();
     console.log("Constructor: ",this.user)
   }
 

@@ -73,7 +73,8 @@ export class LoginComponent {
 
             if (currentUserId == this.filteredProfiles[i].UserId && this.filteredProfiles[i].isAdmin == true) {
               this.admin = true;
-              this.bannedService.saveAuthToken("admin")
+              this.bannedService.setAdmin(this.admin)
+              this.bannedService.notifyButtonClick()
 
             }
 
@@ -87,8 +88,6 @@ export class LoginComponent {
           }
           if (this.banned != true && currentUserId != null) {
     
-            const token = currentUserId.toString()
-            this.authService.saveAuthToken(token);
             this.router.navigate(["/"]);
           }         
         },
@@ -104,6 +103,6 @@ export class LoginComponent {
 
 
   logUserOut() {
-    this.authService.clearAuthToken()
+
   }
 }

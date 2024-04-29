@@ -63,23 +63,5 @@ export class AuthService {
     return this.firebaseAuth.currentUser
   }
 
-  isAuthenticated(): boolean {
-    // Check if user is authenticated by verifying authentication token in sessionStorage or localStorage
-    return !!sessionStorage.getItem('authToken');
-  }
-
-  getAuthToken() {
-    return sessionStorage.getItem('authToken')
-  }
-
-  saveAuthToken(token: string): void {
-    // Save authentication token to sessionStorage or localStorage
-    sessionStorage.setItem('authToken', token);
-  }
-
-  clearAuthToken(): void {
-    // Clear authentication token from sessionStorage or localStorage
-    sessionStorage.removeItem('authToken');
-  }
-
+  
 }

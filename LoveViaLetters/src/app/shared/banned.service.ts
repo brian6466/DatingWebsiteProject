@@ -48,7 +48,7 @@ export class BannedService {
 
   setAdmin(value: boolean) {
     this.admin = value
-    sessionStorage.setItem(this.adminkey, JSON.stringify(value))
+
   }
 
   isBanned(): boolean {
@@ -91,23 +91,5 @@ export class BannedService {
     return this.banned;
   }
 
-  isAuthenticated(): boolean {
-    // Check if user is authenticated by verifying authentication token in sessionStorage or localStorage
-    return !!sessionStorage.getItem('authToken');
-  }
-
-  getAuthToken() {
-    return sessionStorage.getItem('authToken')
-  }
-
-  saveAuthToken(token: string): void {
-    // Save authentication token to sessionStorage or localStorage
-    sessionStorage.setItem('authToken', token);
-  }
-
-  clearAuthToken(): void {
-    // Clear authentication token from sessionStorage or localStorage
-    sessionStorage.removeItem('authToken');
-  }
 
 }
