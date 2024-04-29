@@ -30,7 +30,8 @@ export class SwipePageComponent implements OnInit{
   user: UserProfileInterface | undefined;
   showModal: boolean = false;
   pic: any;
-  
+  name: string | undefined;
+
 
 
   constructor(private firebaseService: UserFirebaseService, private authService: AuthService, private dialog: MatDialog) {
@@ -49,7 +50,7 @@ export class SwipePageComponent implements OnInit{
         if (this.profiles.length > 0) {
           this.profileData = this.profiles[this.currentProfileIndex];
           this.filteredProfiles = this.profiles
-          
+
         }
       });
     }
@@ -68,23 +69,32 @@ export class SwipePageComponent implements OnInit{
   }
 
   swipe(action: string): void {
-    if (action === 'like' && this.user && this.user.likesReceived && this.filteredProfiles) {
+    this.showModal = false;
+    console.log("liked")
+    console.log(this.user)
+    if (action === 'like' && this.user && this.filteredProfiles) {
+      console.log('liked')
       this.firebaseService.addLike(this.authService.getUid(), this.filteredProfiles[this.currentProfileIndex].UserId)
+      if(this.user.likesReceived) {
       for (let i = 0; i < Math.min(this.user.likesReceived.length, this.filteredProfiles.length); i++) {
         if (this.user.likesReceived[i] == this.filteredProfiles[this.currentProfileIndex]?.UserId) {
           console.log("Match")
+          console.log(this.profileData)
+          this.firebaseService.addMatch(this.authService.getUid(), this.filteredProfiles[this.currentProfileIndex].UserId)
           this.profileData = this.filteredProfiles[this.currentProfileIndex]
-          console.log(this.profileData.Name)
+          console.log(this.profileData)
           this.pic = this.filteredProfiles[this.currentProfileIndex].profilePic
+          this.name = this.filteredProfiles[this.currentProfileIndex].Name
           this.showModal = true;
           break;
         }
       }
+      }
     }
 
-    
-    
-    
+
+
+
     this.currentProfileIndex++;
     if (this.currentProfileIndex < this.filteredProfiles.length) {
       this.profileData = this.filteredProfiles[this.currentProfileIndex];

@@ -1,10 +1,26 @@
 import {inject, Injectable} from '@angular/core';
-import { arrayUnion, collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where, deleteDoc } from '@angular/fire/firestore'
+import {
+  arrayUnion,
+  collection,
+  collectionData,
+  doc,
+  Firestore,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+  deleteDoc,
+  addDoc,
+  Query, or, DocumentData, and
+} from '@angular/fire/firestore'
 import {getDownloadURL, ref, Storage, uploadBytes, uploadString} from '@angular/fire/storage'
 import {UserInterface} from "../interfaces/user.interface";
-import {EMPTY, Observable} from "rxjs";
+import {EMPTY, from, Observable} from "rxjs";
 import {AuthService} from "./auth.service";
-import { UserProfileInterface } from '../interfaces/userProfile.interface';
+import {UserProfileInterface} from '../interfaces/userProfile.interface';
+import {ChatMessageInterface} from "../interfaces/chatMessage.interface";
 
 
 
@@ -16,7 +32,9 @@ export class UserFirebaseService {
   storage = inject(Storage);
   auth = inject(AuthService)
   usersCollection = collection(this.firestore, 'users')
+  messagesCollection = collection(this.firestore, 'messages')
 
+  //Ignore how messy this file is lol
 
   async createProfileFromForm(formData: any): Promise<void> {
     try {
@@ -71,7 +89,7 @@ export class UserFirebaseService {
   }
 
 
-  loadFile(){
+  loadFile() {
 
   }
 
@@ -106,7 +124,7 @@ export class UserFirebaseService {
 
 
   async createUser(name: string, email: string, userId: any): Promise<void> {
-    try{
+    try {
       await setDoc(doc(this.firestore, 'users', userId), {
         name: name,
         email: email,
@@ -144,7 +162,7 @@ export class UserFirebaseService {
       const querySnapshot = await getDocs(query(this.usersCollection, where('UserId', '==', id)));
       if (!querySnapshot.empty) {
         const userDocRef = querySnapshot.docs[0].ref;
-        await updateDoc(userDocRef, { isBanned: true });
+        await updateDoc(userDocRef, {isBanned: true});
         console.log(`User with id ${id} has been banned.`);
       } else {
         console.error(`User with id ${id} not found.`);
@@ -160,7 +178,7 @@ export class UserFirebaseService {
       const querySnapshot = await getDocs(query(this.usersCollection, where('UserId', '==', id)));
       if (!querySnapshot.empty) {
         const userDocRef = querySnapshot.docs[0].ref;
-        await updateDoc(userDocRef, { isBanned: false });
+        await updateDoc(userDocRef, {isBanned: false});
         console.log(`User with id ${id} has been unBanned.`);
       } else {
         console.error(`User with id ${id} not found.`);
@@ -176,7 +194,7 @@ export class UserFirebaseService {
       const querySnapshot = await getDocs(query(this.usersCollection, where('UserId', '==', id)));
       if (!querySnapshot.empty) {
         const userDocRef = querySnapshot.docs[0].ref;
-        await updateDoc(userDocRef, { isAdmin: status });
+        await updateDoc(userDocRef, {isAdmin: status});
         console.log(`User with id ${id} has admin status of ${status}.`);
       } else {
         console.error(`User with id ${id} not found.`);
@@ -189,8 +207,75 @@ export class UserFirebaseService {
   async deleteUser(userID: any) {
     await deleteDoc(doc(this.firestore, 'users', userID))
     console.log("User with ID: ", userID, " deleted")
-  } 
+  }
 
-  
+
+  async createMatch(UserId1: string | undefined, UserId2: string) {
+    try {
+      await addDoc(collection(this.firestore, 'matches'),
+        {
+          userId1: UserId1,
+          userId2: UserId2
+        });
+    } catch (error) {
+      console.error('Error creating new user document: ', error);
+      throw error;
+    }
+  }
+
+  async getMatchesForUser(userId: string | undefined) {
+    const matchesArray: DocumentData[] = []
+    const q = query(collection(this.firestore, "matches"), or(where("userId1", "==", userId), where("userId2", "==", userId)));
+
+    const queryResult =  await getDocs(q)
+    queryResult.docs.map((matches) =>
+        matchesArray.push(matches.data())
+      );
+    return matchesArray;
+  }
+
+  async addMatch(userId: any, MatchedId: any): Promise<void> {
+    console.log(userId)
+    console.log(MatchedId)
+    try {
+      await updateDoc(doc(this.firestore, 'users', MatchedId), {
+        Matches: arrayUnion(userId.toString())
+      });
+      await updateDoc(doc(this.firestore, 'users' ,userId), {
+        Matches: arrayUnion(MatchedId.toString())
+      });
+      }
+     catch (error) {
+    }
+  }
+
+  async sendMessage(senderId: string, recipientId: string, content: string): Promise<void> {
+    try {
+      await addDoc(collection(this.firestore, 'messages'),
+        {
+          senderId: senderId,
+          recipientId: recipientId,
+          content: content,
+          createdAt: new Date()
+        });
+    } catch (error) {
+      console.error('Error creating new user document: ', error);
+      throw error;
+    }
+  }
+
+  getMatchMessages(userId: any, MatchedId: any):  Observable<ChatMessageInterface[]> {
+    const q = query(this.messagesCollection, and(
+      where('senderId', 'in', [userId, MatchedId]),
+      where('recipientId', 'in', [userId, MatchedId])))
+    return collectionData(q, {
+      idField: 'id'
+    }) as Observable<ChatMessageInterface[]>;
+  }
+
+
+
+
 
 }
+

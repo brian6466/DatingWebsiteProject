@@ -14,4 +14,5 @@ export interface UserProfileInterface {
   email: string;
   isAdmin: boolean;
   likesReceived: string[];
+  Matches: string[];
 }
