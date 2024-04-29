@@ -26,72 +26,69 @@ export class HomePageComponennt implements OnInit{
   profileData: UserProfileInterface | null = null;
   currentUser: UserProfileInterface | null = null;
   user: UserProfileInterface | undefined;
-  userId: any = this.authService.getUid()
+  userId: any;
   pic: any;
   interests: string[] = []
 
   constructor(private firebaseService: UserFirebaseService, public authService: AuthService) {
+    
+  }
+
+  ngOnInit(): void {
+    this.userId = this.authService.getAuthToken()
+
+    this.loadProfiles()
+    // Fetch user data asynchronously
     this.firebaseService.getUser().subscribe(
-      (user: UserProfileInterface | undefined) => {
+      (user: UserProfileInterface | undefined): void => {
+
         this.user = user;
-        console.log('User data:', this.user);
-        this.getInterests()
-        this.loadProfiles()
-        this.filterProfilesByInterests()
+
+        this.getInterests();       
       },
       error => {
         console.error('Error fetching user data:', error);
       }
     );
-    
   }
 
-  ngOnInit(): void {
-
-    
-    this.filterProfilesByInterests()
-  }
-
-  loadProfiles() {
-    const currentUserId = this.authService.getUid()
-    if (currentUserId) {
+  loadProfiles() {   
       this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
-        this.profiles = users.filter(user => user.UserId !== currentUserId);
+        this.profiles = users.filter(user => user.UserId !== this.userId);
         if (this.profiles.length > 0) {
           this.filteredProfiles = this.profiles
-          console.log(this.filteredProfiles)
+          this.filterProfilesByInterests();
         }
         
       });
-    }
-  }
-
-  getInterests() {
-    this.user?.Interests.forEach( (hobby) => {
-      this.interests.push(hobby);
-    });
-    console.log("user interests: ", this.interests)
   }
 
   filterProfilesByInterests() {
     if (this.user?.Interests != null && this.user.Interests.length > 0) {
-      // Check if the user's interests exist and the array is not empty
-      console.log("Current user interests:", this.user?.Interests);
 
-      // Filter profiles based on interests
-      this.filteredProfiles = this.profiles.filter(profile =>
-        profile.Interests.some(interest => this.interests.includes(interest))
+      const MIN_COMMON_INTERESTS = 2; // Minimum number of common interests required
+      
+
+      this.filteredInterestProfiles = this.filteredProfiles.filter(profile =>
+        this.countCommonInterests(profile.Interests, this.interests) >= MIN_COMMON_INTERESTS
       );
-      console.log("Adjusted List:", this.filteredProfiles);
-      this.filteredInterestProfiles = this.filteredProfiles
+
     } else {
-      // If user interests are not available or empty, reset filtered profiles to all profiles
-      console.log("User interests not available or empty. Showing all profiles.");
+
+
       this.loadProfiles()
       this.filteredProfiles = this.profiles;
     }
   }
 
+  countCommonInterests(profileInterests: string[], userInterests: string[]): number {
+    return profileInterests.filter(interest => userInterests.includes(interest)).length;
+  }
+
+  getInterests() {
+    this.interests = this.user?.Interests || [];
+
+  }
 
 
 }

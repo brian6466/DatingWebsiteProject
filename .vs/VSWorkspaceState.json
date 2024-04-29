@@ -4,12 +4,13 @@
     "\\LoveViaLetters",
     "\\LoveViaLetters\\src",
     "\\LoveViaLetters\\src\\app",
-    "\\LoveViaLetters\\src\\app\\header",
-    "\\LoveViaLetters\\src\\app\\interfaces",
-    "\\LoveViaLetters\\src\\app\\register",
-    "\\LoveViaLetters\\src\\app\\shared",
-    "\\LoveViaLetters\\src\\app\\swipe-page",
+    "\\LoveViaLetters\\src\\app\\admin",
+    "\\LoveViaLetters\\src\\app\\create-profile",
+    "\\LoveViaLetters\\src\\app\\home-page",
+    "\\LoveViaLetters\\src\\app\\login",
+    "\\LoveViaLetters\\src\\app\\messages",
     "\\LoveViaLetters\\src\\assets"
   ],
+  "SelectedNode": "\\LoveViaLetters\\src\\app\\home-page\\home-page.component.ts",
   "PreviewInSolutionExplorer": false
 }

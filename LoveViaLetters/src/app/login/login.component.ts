@@ -73,8 +73,8 @@ export class LoginComponent {
 
             if (currentUserId == this.filteredProfiles[i].UserId && this.filteredProfiles[i].isAdmin == true) {
               this.admin = true;
-              this.bannedService.setAdmin(this.admin)
-              this.bannedService.notifyButtonClick()
+              this.bannedService.saveAuthToken("admin")
+
             }
 
             if (currentUserId == this.filteredProfiles[i].UserId && this.filteredProfiles[i].isBanned == true) {
@@ -85,7 +85,10 @@ export class LoginComponent {
               return;
             }
           }
-          if (this.banned != true) {
+          if (this.banned != true && currentUserId != null) {
+    
+            const token = currentUserId.toString()
+            this.authService.saveAuthToken(token);
             this.router.navigate(["/"]);
           }         
         },
@@ -101,6 +104,6 @@ export class LoginComponent {
 
 
   logUserOut() {
-
+    this.authService.clearAuthToken()
   }
 }

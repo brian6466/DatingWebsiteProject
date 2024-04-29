@@ -11,7 +11,6 @@ import { Firestore } from '@angular/fire/firestore';
 })
 export class BannedService {
   private bannedSubject = new BehaviorSubject<boolean>(false);
-  banned$ = this.bannedSubject.asObservable();
   firestore = inject(Firestore)
   profiles: UserProfileInterface[] = [];
   filteredProfiles: UserProfileInterface[] = [];
@@ -28,10 +27,6 @@ export class BannedService {
     this.checkBan(this.authService.getUid())
   }
 
-  //setBanned(value: boolean) {
-  //  this.bannedSubject.next(value);
-  //}
-
   private buttonClickSubject = new Subject<void>();
 
   buttonClick$ = this.buttonClickSubject.asObservable();
@@ -47,11 +42,13 @@ export class BannedService {
   }
 
   isAdmin(): boolean {
+    console.log("banned service set admin", this.admin)
     return this.admin
   }
 
   setAdmin(value: boolean) {
-    this.admin = value;
+    this.admin = value
+    sessionStorage.setItem(this.adminkey, JSON.stringify(value))
   }
 
   isBanned(): boolean {
@@ -94,5 +91,23 @@ export class BannedService {
     return this.banned;
   }
 
+  isAuthenticated(): boolean {
+    // Check if user is authenticated by verifying authentication token in sessionStorage or localStorage
+    return !!sessionStorage.getItem('authToken');
+  }
+
+  getAuthToken() {
+    return sessionStorage.getItem('authToken')
+  }
+
+  saveAuthToken(token: string): void {
+    // Save authentication token to sessionStorage or localStorage
+    sessionStorage.setItem('authToken', token);
+  }
+
+  clearAuthToken(): void {
+    // Clear authentication token from sessionStorage or localStorage
+    sessionStorage.removeItem('authToken');
+  }
 
 }

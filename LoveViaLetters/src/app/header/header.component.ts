@@ -19,27 +19,17 @@ import { UserProfileInterface } from '../interfaces/userProfile.interface';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnDestroy {
+export class HeaderComponent implements OnInit {
 
   banned: boolean = false;
   admin: boolean = false;
   user: any;
-  private subscription: Subscription;
 
-  constructor(private router: Router, public authService: AuthService, private bannedService: BannedService, private firebaseService: UserFirebaseService) {
-    this.subscription = this.bannedService.buttonClick$.subscribe(() => {
-      this.handleButtonClick();
-    }); 
-  }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  handleButtonClick() {
-    this.banned = this.bannedService.isBanned()
-    this.admin = this.bannedService.isAdmin()
-  }
+  constructor(private router: Router, public authService: AuthService, private bannedService: BannedService, private firebaseService: UserFirebaseService) { }
+  ngOnInit(): void {
+     this.admin = this.bannedService.isAuthenticated()
+    }
 
   logOut() {
     this.authService.logout();
