@@ -3,6 +3,7 @@ import { UserProfileInterface } from "../interfaces/userProfile.interface";
 import { UserFirebaseService } from "../shared/userFirebase.service";
 import { AuthService } from "../shared/auth.service";
 import { NgForOf, NgIf, NgOptimizedImage } from "@angular/common";
+import {Observable, switchMap, take} from "rxjs";
 
 @Component({
   selector: 'app-home-page',
@@ -34,21 +35,26 @@ export class HomePageComponennt implements OnInit{
 
   ngOnInit(): void {
 
-
-    this.userId = this.authService.getUid()
-
-    this.firebaseService.getUser().subscribe(data => {
-      console.log(data)
-      if (data){
-        if (data?.Interests) {
-          this.interests = data?.Interests
-          console.log(this.interests)
+    this.authService.user$.pipe(
+      take(1),
+      switchMap(user => {
+        if (user) {
+          this.userId = user.uid;
+          return this.firebaseService.getUser();
+        } else {
+          return new Observable<UserProfileInterface | null>();
+        }
+      })
+    ).subscribe(data => {
+      console.log(data);
+      if (data) {
+        if (data.Interests) {
+          this.interests = data.Interests;
           this.triggerFilterProfilesByInterests();
         }
       }
+    });
 
-
-    })
 
     this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
       this.profiles = users.filter(user => user.UserId !== this.userId);
@@ -59,8 +65,6 @@ export class HomePageComponennt implements OnInit{
       }
 
     });
-    //this.loadProfiles()
-    // Fetch user data asynchronously
 
   }
 
