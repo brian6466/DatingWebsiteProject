@@ -1,6 +1,15 @@
 body {
-  /*font-family: 'Old English Text MT', serif;*/
+  background-color: #f5e6cc;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-size:cover;
+  
 }
+h1{
+  margin:0;
+}
+
 
 #medieval-border {
   border: 2px solid #7f5e46;

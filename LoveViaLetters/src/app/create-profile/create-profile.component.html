@@ -5,9 +5,22 @@
   <title>Create Profile</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Ensure the body and html take up full height */
+    background-color: #f5e6cc;
+  }
 
+  body {
+    font-family: "URW Chancery L", cursive;
+    background-color: #f5e6cc;
+  }
+</style>
 </head>
 <body>
+
 
   <div class="container mt-5">
     <div class="row justify-content-center">
@@ -61,7 +74,7 @@
                   <label for="smoke">Do you smoke?</label>
                   <input type="checkbox" id="smoke" formControlName="smoke">
                 </div>
-
+                
                 <div class="form-group">
                   <label for="drink">Do you drink?</label>
                   <input type="checkbox" id="drink" formControlName="drink">
