@@ -82,10 +82,8 @@ export class SwipePageComponent implements OnInit{
       for (let i = 0; i < Math.min(this.user.likesReceived.length, this.filteredProfiles.length); i++) {
         if (this.user.likesReceived[i] == this.filteredProfiles[this.currentProfileIndex]?.UserId) {
           console.log("Match")
-          console.log(this.profileData)
           this.firebaseService.addMatch(this.authService.getUid(), this.filteredProfiles[this.currentProfileIndex].UserId)
           this.profileData = this.filteredProfiles[this.currentProfileIndex]
-          console.log(this.profileData)
           this.pic = this.filteredProfiles[this.currentProfileIndex].profilePic
           this.name = this.filteredProfiles[this.currentProfileIndex].Name
           this.showModal = true;
