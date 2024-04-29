@@ -1,14 +1,20 @@
 <div class="container">
   <div class="match-list">
     <h2>Matched Users</h2>
-    <ul>
+    <ul class="user-list">
       <li *ngFor="let user of matchedUsers">
-        <button (click)="openChat(user)">Chat with {{ user.Name }}</button>
+
+        <div class="profile-picture-container">
+          <img [src]="user?.profilePic" alt="Profile Picture" class="profile-picture">
+        </div>
+
+        <button (click)="openChat(user)">Chat with {{ user.Name }} </button>
+
       </li>
     </ul>
   </div>
   <div class="chat" *ngIf="selectedUser">
-    <h2>Chatting with {{ selectedUser?.Name || 'Unknown User' }}</h2>
+    <h2>Chatting with {{ selectedUser.Name || 'Unknown User' }} </h2>
     <div class="messages">
       <div *ngFor="let message of chatMessages">
         <p [ngClass]="{'sent': message.senderId === authService.getUid(), 'received': message.senderId !== authService.getUid()}">
