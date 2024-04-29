@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   background-size:cover;
-  
+
 }
 h1{
   margin:0;
@@ -19,7 +19,7 @@ h1{
 }
 
 #medieval-button {
-  background-color: #8B4513; /* Brown */
+  background-color: #8B4513;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -28,5 +28,5 @@ h1{
 }
 
   #medieval-button:hover {
-    background-color: #CD853F; /* Peru */
+    background-color: #CD853F;
   }
