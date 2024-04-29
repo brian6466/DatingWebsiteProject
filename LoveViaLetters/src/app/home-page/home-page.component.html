@@ -38,9 +38,9 @@
         </div>
       </div>
 
-      <div *ngIf="!authService.currentUserSignal()">
-        <h2>Please Login to see list</h2>
-      </div>
+        <div  *ngIf="!authService.currentUserSignal()" class="card-body">
+          <h2>Please Login to see list</h2>
+        </div>
 
       <div *ngIf="authService.currentUserSignal()">
         <ul class="user-list">
