@@ -15,4 +15,5 @@ export interface UserProfileInterface {
   isAdmin: boolean;
   likesReceived: string[];
   Matches: string[];
+  reportedBy: string[]
 }

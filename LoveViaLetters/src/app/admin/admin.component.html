@@ -37,7 +37,10 @@
     <ul class="user-list">
       <li *ngFor="let profile of filteredProfiles" class="user-item">
         <div class="user-details">
-          {{ profile.Name }} - {{ profile.UserId }} - Ban Status : {{profile.isBanned}} 
+          {{ profile.Name }} - {{ profile.UserId }} - Ban Status : {{profile.isBanned}}
+          <ng-container *ngIf="profile.reportedBy">
+            - Reports: {{ profile.reportedBy.length }}
+          </ng-container>
         </div>
         <div class="user-buttons">
           <button (click)="banProfile(profile.UserId)" class="ban">Ban</button>

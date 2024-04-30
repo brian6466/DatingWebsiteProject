@@ -5,6 +5,20 @@ body {
   padding: 0;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f5e6cc;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "URW Chancery L", cursive;
+  background-color: #f5e6cc;
+}
+
 header {
   background-color: #f5e6cc;
 }

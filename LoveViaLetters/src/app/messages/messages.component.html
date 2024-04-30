@@ -11,7 +11,10 @@
     </ul>
   </div>
   <div class="chat" *ngIf="selectedUser">
-    <h2>Chatting with {{ selectedUser?.Name || 'Unknown User' }}</h2>
+    <h2>
+      Chatting with {{ selectedUser?.Name || 'Unknown User' }}
+      <button type="button" class="report-button" (click)="reportUser(selectedUser)">Report</button>
+    </h2>
     <div class="messages">
       <div *ngFor="let message of chatMessages">
         <p [ngClass]="{'sent': message.senderId === authService.getUid(), 'received': message.senderId !== authService.getUid()}">

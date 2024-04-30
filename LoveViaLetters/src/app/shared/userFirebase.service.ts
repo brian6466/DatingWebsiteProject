@@ -22,7 +22,6 @@ import {UserProfileInterface} from '../interfaces/userProfile.interface';
 import {ChatMessageInterface} from "../interfaces/chatMessage.interface";
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -188,17 +187,14 @@ export class UserFirebaseService {
   }
 
   async addMatch(userId: any, MatchedId: any): Promise<void> {
-    console.log(userId)
-    console.log(MatchedId)
     try {
       await updateDoc(doc(this.firestore, 'users', MatchedId), {
         Matches: arrayUnion(userId.toString())
       });
-      await updateDoc(doc(this.firestore, 'users' ,userId), {
+      await updateDoc(doc(this.firestore, 'users', userId), {
         Matches: arrayUnion(MatchedId.toString())
       });
-      }
-     catch (error) {
+    } catch (error) {
     }
   }
 
@@ -217,7 +213,7 @@ export class UserFirebaseService {
     }
   }
 
-  getMatchMessages(userId: any, MatchedId: any):  Observable<ChatMessageInterface[]> {
+  getMatchMessages(userId: any, MatchedId: any): Observable<ChatMessageInterface[]> {
     const q = query(this.messagesCollection, and(
       where('senderId', 'in', [userId, MatchedId]),
       where('recipientId', 'in', [userId, MatchedId])))
@@ -226,9 +222,15 @@ export class UserFirebaseService {
     }) as Observable<ChatMessageInterface[]>;
   }
 
-
-
-
-
+  async reportUser(userId: string | undefined, currentUserId: string) {
+    if (userId) {
+      try {
+        await updateDoc(doc(this.firestore, 'users', userId), {
+          reportedBy: arrayUnion(currentUserId.toString())
+        });
+      } catch (error) {
+      }
+    }
+  }
 }
 

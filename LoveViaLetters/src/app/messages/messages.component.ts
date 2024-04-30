@@ -25,6 +25,7 @@ export class MessagesComponent implements OnInit {
   selectedUser: UserProfileInterface | null = null;
   chatMessages: ChatMessageInterface[] = [];
   newMessage: string = '';
+  currentUserId: string = ''
 
 
   constructor(private userFirebaseService: UserFirebaseService, protected authService: AuthService) {
@@ -34,6 +35,7 @@ export class MessagesComponent implements OnInit {
     this.userFirebaseService.getUsers().subscribe(users => {
       const currentUser = users.find(user => user.UserId === this.authService.getUid());
       if (currentUser) {
+        this.currentUserId = currentUser.UserId
         this.matchedUsers = users.filter(user => currentUser.Matches.includes(user.UserId));
       }
     });
@@ -73,6 +75,11 @@ export class MessagesComponent implements OnInit {
       this.newMessage = '';
     }
   }
+
+  reportUser(selectedUser: UserProfileInterface | null){
+    this.userFirebaseService.reportUser(selectedUser?.UserId, this.currentUserId )
+  }
+
 
 
 

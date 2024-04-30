@@ -29,8 +29,8 @@ export class AdminComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log("onInitCalled")
-    
-      
+
+
         this.firebaseService.getUsers().subscribe((users: UserProfileInterface[]) => {
           this.profiles = users.filter(user => user.UserId);
           if (this.profiles.length > 0) {
@@ -41,7 +41,7 @@ export class AdminComponent implements OnInit {
           }
         });
 
-      
+
   }
 
   banProfile(user: string) {

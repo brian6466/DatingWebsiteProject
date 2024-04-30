@@ -106,3 +106,26 @@ form button[type="submit"] {
 form button[type="submit"]:hover {
   background-color: #0056b3;
 }
+
+h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.report-button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #dc3545;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.report-button:hover {
+  background-color: #c82333;
+}
