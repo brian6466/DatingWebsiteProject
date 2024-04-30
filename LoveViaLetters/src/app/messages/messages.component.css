@@ -1,3 +1,10 @@
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "URW Chancery L", cursive;
+  background-color: #f5e6cc;
+}
+
 .container {
   display: flex;
   height: calc(100vh - 70px);
@@ -21,6 +28,8 @@
 .match-list ul {
   padding: 0;
   list-style-type: none;
+  max-height: 90%;
+  overflow-y: auto;
 }
 
 .match-list li {
