@@ -1,30 +1,35 @@
 
 <nav class="navbar">
   <div class="container">
+    <div class="left-section">
     <a routerLink="/" routerLinkActive="active" class="logo">
       <img src="assets/favicon2.png" alt="Logo"
-      style="width: 50px; height: auto;">
+           style="width: 50px; height: auto;">
     </a>
+      <ul class="nav-links">
+        <li *ngIf="authService.currentUserSignal() && !banned">
+          <a routerLink="/create-profile" routerLinkActive="active">
+            <img src="assets/pfp.png" alt="Create Profile" style="width: 50px; height: auto;">
+          </a>
+        </li>
+        <li *ngIf="authService.currentUserSignal() && !banned">
+          <a routerLink="/swipe-page" routerLinkActive="active">
+            <img src="assets/search.png" alt="Swipe Page" style="width: 50px; height: auto;">
+          </a>
+        </li>
+        <li *ngIf="authService.currentUserSignal() && !banned">
+          <a routerLink="/messages" routerLinkActive="active">
+            <img src="assets/letters.png" alt="Messages" style="width: 50px; height: auto;">
+          </a>
+        </li>
+      </ul>
+
+    </div>
     <ul class="nav-links">
-      <li *ngIf="authService.currentUserSignal() && !banned">
-        <a routerLink="/create-profile" routerLinkActive="active">
-          <img src="assets/pfp.png" alt="Create Profile" style="width: 50px; height: auto;">
-        </a>
-      </li>
       <li *ngIf="authService.currentUserSignal() == null || banned"><a routerLink="/login" routerLinkActive="active">Log In</a></li>
       <li *ngIf="authService.currentUserSignal() && !banned"><a (click)="logOut()" routerLink="/login" routerLinkActive="active">Log Out</a></li>
       <li *ngIf="authService.currentUserSignal() == null || banned"><a routerLink="/register" routerLinkActive="active">Sign Up</a></li>
-      <li *ngIf="authService.currentUserSignal() && !banned">
-        <a routerLink="/swipe-page" routerLinkActive="active">
-          <img src="assets/search.png" alt="Swipe Page" style="width: 50px; height: auto;">
-        </a>
-      </li>
       <li *ngIf="authService.currentUserSignal() && admin"><a routerLink="/admin" routerLinkActive="active">Admin Page</a></li>
-      <li *ngIf="authService.currentUserSignal() && !banned">
-        <a routerLink="/messages" routerLinkActive="active">
-          <img src="assets/letters.png" alt="Messages" style="width: 50px; height: auto;">
-        </a>
-      </li>
     </ul>
   </div>
 </nav>
