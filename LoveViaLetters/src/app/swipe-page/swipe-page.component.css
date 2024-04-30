@@ -50,8 +50,17 @@ body {
   justify-content: space-between;
   position: fixed;
   bottom: 20px;
-  left: 220px;
-  right: 220px;
+  left: 20%;
+  right: 20%;
+  max-width: 60%;
+}
+
+@media (max-width: 768px) {
+  .button-container {
+    left: 5%;
+    right: 5%;
+    max-width: 90%;
+  }
 }
 
     .button-container img {
