@@ -1,3 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f5e6cc;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "URW Chancery L", cursive;
+  background-color: #f5e6cc;
+}
+
+
 .card-container {
   position: relative;
   width: 100%;
@@ -40,11 +55,11 @@
 }
 
     .button-container img {
-      width: 150px; 
-      height: auto; 
-      margin-right: 0; 
+      width: 150px;
+      height: auto;
+      margin-right: 0;
     }
-  
+
 
 .btn-like, .btn-dislike {
   display: block;
@@ -117,12 +132,12 @@
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; 
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; 
+  width: 80%;
   height: 400px;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .close {
